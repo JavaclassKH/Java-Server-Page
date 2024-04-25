@@ -1,0 +1,35 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html; charset=UTF-8");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>t12_login.jsp</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<p><br/></p>
+	<div class="container">
+		<h2>값 전송연습 11</h2>
+		<form name="myform" method="post" action="<%=request.getContextPath() %>/j0425/T11Ok">
+			<div> 아이디 :
+				<input type="text" name="mid" value="admin" class="form-control mb-4" autofocus required /> 		
+			</div>
+			<div> 비밀번호 : 
+			 <input type="password" name="pwd" placeholder="1234" class="form-control mb-4" required /> 
+			</div>
+			<div>  
+				<input type="submit" value="로그인" class="btn btn-light" /> 
+			</div>
+		</form>
+	</div>
+<p><br/></p>
+</body>
+</html>
