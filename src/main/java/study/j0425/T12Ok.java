@@ -65,40 +65,12 @@ public class T12Ok extends HttpServlet {
 		vo.setBbang(bbang);
 		vo.setContent(content);
 		vo.setFilename(filename);
-		
-		
-//		response.sendRedirect(request.getContextPath()+"study/j0425/t12_main.jsp?name="+name+"&age="+age+"&gender="
-//		+gender+"&hobby="+hobby+"&job="+job+"&bbang="+bbang);
-//		response.sendRedirect(request.getContextPath()+"study/j0425/t12_main.jsp?name="+name+"&age="+age+
-//		"&gender="+gender);
-		
+
 		// 직렬화시킴(쭉 이동하는 dispatcher에 vo의 값을 실어서 중간에 만난 main에서 값을 받아가게 함)
 		request.setAttribute("vo", vo);
 		
 		String viewPage = "/study/j0425/t12_main.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
-		
 	}
-	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -3,16 +3,11 @@
 	String img = request.getParameter("tag") == null ? "111" : request.getParameter("tag");
 	String[] imgs = request.getParameterValues("imgs");
 	
-	String imgPrint = "";
-	for(String imgName : imgs) {
-		imgPrint += imgName; 
+	String imgName = "";
+	for(int i=0; i<=imgs.length; i++) {
+		imgName += imgs[i];
 	}
-	
-	for(int i=3; i<=imgPrint.length(); i+=3){
-		imgPrint = imgPrint.substring(0, i);
-	}
-	imgPrint = imgPrint.trim();
-	System.out.println(imgPrint);
+	System.out.println(imgName);   
 	
 %>
 
@@ -33,7 +28,7 @@
 		<h2>선택한 그림 출력</h2>
 		<img src="<%=request.getContextPath() %>/images/<%=img %>.jpg" width="700px" height="450px" />
 		<p>선택한 그림 여러장 출력</p>
-		<img src="<%=request.getContextPath() %>/images/<%=imgPrint %>.jpg" width="700px" height="450px" />
+		<img src="<%=request.getContextPath() %>/images/<%=imgName %>.jpg" width="700px" height="450px" />
 	</div>
 <p><br/></p>
 </body>

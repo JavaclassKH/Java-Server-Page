@@ -4,7 +4,7 @@
 	response.setContentType("text/html; charset=UTF-8");
 %>
 <!DOCTYPE html>
-<html>
+<html> 
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +21,7 @@
   	function logout() {
   		alert("${vo.name}님 로그아웃 되었습니다");
   		location.href = "t12_form.jsp";
-		}
-  	
+		} 	
   </script>
 </head>
 <body>
@@ -47,16 +46,3 @@
 <p><br/></p>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

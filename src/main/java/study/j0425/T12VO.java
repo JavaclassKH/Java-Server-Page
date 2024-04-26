@@ -11,7 +11,6 @@ public class T12VO {
 	private String content;
 	private String filename;
 	
-	
 	public String getName() {
 		return name;
 	}
@@ -66,5 +65,4 @@ public class T12VO {
 		return "T12VO [name=" + name + ", age=" + age + ", gender=" + gender + ", hobby=" + hobby + ", job=" + job
 				+ ", bbang=" + bbang + "]";
 	}
-	
 }
