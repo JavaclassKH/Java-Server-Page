@@ -23,10 +23,10 @@
 <div class="container" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
-      <h2>About Me</h2>
+      <h2>About Me(${sMid})</h2>
       <h5>Photo of me:</h5>
       <div class="fakeimg">Fake Image</div>
-      <p>Some text about me in ppoa..</p>
+      <p>끝났어 포기해 물러서라 너는 절대 날 이길 수 없어 패배자는 너야</p>
       <h3>Some Links</h3>
       <p>amigo</p>
       <ul class="nav nav-pills flex-column">

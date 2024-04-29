@@ -9,7 +9,7 @@
   <style>
   .fakeimg {
     height: 200px;
-    background: #aaa;
+    background: #afa;
   }
   </style>
 </head>
@@ -26,7 +26,7 @@
       <h2>About Me</h2>
       <h5>Photo of me:</h5>
       <div class="fakeimg">Fake Image</div>
-      <p>Some text about me in ppoa..</p>
+      <p>Some text about me in ..</p>
       <h3>Some Links</h3>
       <p>amigo</p>
       <ul class="nav nav-pills flex-column">
@@ -54,7 +54,7 @@
       <br>
       <h2>TITLE HEADING</h2>
       <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg">Fake Image</div>
+      <div class="fakeimg"><img src="../../images/115.jpg" /></div>
       <p>Some text..</p>
       <p>def</p>
     </div>

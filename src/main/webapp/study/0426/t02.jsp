@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- <% include file = "/include/certification.jsp" %> --%>
 <%
 	String hostIP = request.getRemoteAddr(); // 접속자의 호스트IP를 가져옴
 %>
