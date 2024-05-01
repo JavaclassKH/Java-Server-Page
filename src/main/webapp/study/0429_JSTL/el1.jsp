@@ -70,7 +70,7 @@
 				<form name="myform" method="post" action="${pageContext.request.contextPath}/j0429/ELTest">
 					<h2 class="text-center mb-5">Form 자료 전송 연습</h2>
 					<div>성명 : 
-						<input type="text" name="name" value="한모네" class="form-control mb-3" autofocus />
+						<input type="text" name="name" placeholder="입력하세요" class="form-control mb-3" autofocus required />
 					</div>
 					<div>취미 : 
 						걸그룹&nbsp;&nbsp;<input type="checkbox" name="hobby" value="걸그룹" />
@@ -91,7 +91,7 @@
 	if(!name.equals("")) {
 %>	
 		<p><br/></p>
-		<p>성명 : ${name}</p>
+		<p>성명 : ${name}</p><br/>
 		<p>취미 : ${hobby}</p>
 <%} %>
 		</div>

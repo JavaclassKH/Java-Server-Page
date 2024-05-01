@@ -4,9 +4,9 @@
 
 %>
 
-<nav class="navbar navbar-expand-md bg-dark navbar-red">
+<nav class="navbar navbar-expand-md bg-light navbar-gray">
   <%-- <a class="navbar-brand ml-3" href="<%=request.getContextPath()%>/" style="font-size:1.2em;">Home</a> --%>
-  <a class="navbar-brand ml-3" href="http://192.168.50.64:9090/javaclass" style="font-size:1.2em;">Home</a>
+  <a class="navbar-brand ml-3" href="http://192.168.50.64:9090/javaclass" style="font-size:1.3em;"><b>Home</b></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,7 +21,26 @@
       </li>
       <li class="nav-item">
         <a class="nav-link ml-3" href="#">PDS</a>
-      </li>    
+      </li>        
+      <li class="nav-item">
+        <!-- <a class="nav-link ml-2" href="#">Study</a> -->
+        <div class="dropdown">
+				  <button type="button" class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split ml-4" data-toggle="dropdown">
+				    IVE Medley
+				  </button>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=07EzMbVH3QE" target="_blank">해야 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=Da4P2uT4mVc" target="_blank">Baddie 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=_ApV7Lm87cg" target="_blank">Off The Record 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=_Hu4GYtye5U" target="_blank">Either Way 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=6ZUIwj3FgUY" target="_blank">I AM 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=pG6iaOMV46I" target="_blank">Kitsch 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=F0B7HDiY-10" target="_blank">After Like 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=F0B7HDiY-10" target="_blank">After Like 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=Y8JFxS1HlDo" target="_blank">LOVE DIVE 뮤직비디오</a>
+				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=--FmExEAsM8" target="_blank">ELEVEN 뮤직비디오</a>
+				  </div>
+				</div>
       <li class="nav-item">
         <!-- <a class="nav-link ml-2" href="#">Study</a> -->
         <div class="dropdown">
@@ -29,7 +48,6 @@
 				    Study
 				  </button>
 				  <div class="dropdown-menu">
-				    <a class="dropdown-item" href="https://www.youtube.com/watch?v=6ZUIwj3FgUY">아이브 I AM 뮤직비디오</a>
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0426/t01.jsp">서버환경확인</a>
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0426/t02.jsp">성적계산</a>
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0426/ex1_Login.jsp">아이디저장</a>
@@ -39,6 +57,7 @@
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0427_storage/t4_StorageTest.jsp">Storage 연습</a>
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/el1.jsp">EL연습</a>
 				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0429_JSTL/jstl1.jsp">JSTL연습</a>
+				    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/0430_web_xml/filter/t1_filter.jsp">Filter 한글연습</a>
 				  </div>
 				</div>
 <%      }%>    	

@@ -25,14 +25,14 @@
 		sessionValue += session.getAttribute(sessionName_) + " / ";
 	}
 	System.out.println("");
-	System.out.println(sessionName + "\n ㄴ>" + sessionValue);
+	System.out.println(sessionName + "\n ㄴ>" + "   " +sessionValue);
 %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Insert</title>
+	<title>t2_SessionCheck.jsp</title>
 	<jsp:include page="/include/bs4.jsp" />
 </head>
 <body>

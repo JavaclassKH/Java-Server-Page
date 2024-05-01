@@ -1,15 +1,21 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% 
+  session.getLastAccessedTime();
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");	
+	String lat = sdf.format(session.getLastAccessedTime());
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <title>Bootstrap 4 Website Example</title>
+  <title>해야 & Accendio</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%@ include file = "../../include/bs4.jsp" %>  <!-- 부트스트랩(bs4) -->
   <style>
   .fakeimg {
     height: 200px;
-    background: #aaa;
+    background: #abc;
   }
   </style>
 </head>
@@ -47,7 +53,7 @@
     </div>
     <div class="col-sm-8">
       <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
+      <h5>세션 마지막 접속시간 : <%=lat %></h5>
       <div class="fakeimg">Fake Image</div>
       <p>Some text..</p>
       <p>abc</p>
