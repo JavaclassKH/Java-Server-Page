@@ -12,8 +12,8 @@
 		'use strict';
 		let flag = "";
 		function fCheck(flag) {
-			if(flag == 'OK') myform.action ="${ctp}/j0430/T01Ok";
-			else myform.action ="";
+			if(flag == 'OK') myform.action ="${ctp}/j0430/T01Ok1";
+			else myform.action ="${ctp}/j0430/T01Ok2";
 			myform.submit();
 		}
 	
@@ -26,9 +26,9 @@
 	<div class="container">
 		<h2>한글처리 연습</h2>
 		<form name="myform" method="post">
-			<div><input type="text" name="content" value="간단소개" class="form-control" autofocus /></div>
-			<div><textarea rows="5" name="introduce" value="간단" placeholder="사이트 소개" class="form-control"></textarea></div>
-			<div><input type="button" value="전송1" onclick="fCheck('OK')" class="btn btn-outline-success form-control"/></div>
+			<div><input type="text" name="content" value="간단소개" class="form-control mb-2" autofocus /></div>
+			<div><textarea rows="5" name="introduce" value="간단" placeholder="사이트 소개" class="form-control mt-2 mb-4">자기 소괨돠</textarea></div>
+			<div><input type="button" value="전송1" onclick="fCheck('OK')" class="btn btn-outline-success form-control mb-2"/></div>
 			<div><input type="button" value="전송2" onclick="fCheck('NO')" class="btn btn-outline-primary form-control"/></div>
 		</form>
 	</div>

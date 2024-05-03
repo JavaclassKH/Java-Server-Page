@@ -10,10 +10,6 @@ public class MemberVO {
 	
 	public MemberVO() {}
 	
-	
-	
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -26,55 +22,24 @@ public class MemberVO {
 	public void setAge(int age) {
 		this.age = age;
 	}
-
 	public String getGender() {
 		return gender;
 	}
-
-
-
-
-
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
-
-
-
-
 	public String getJob() {
 		return job;
 	}
-
-
-
-
-
 	public void setJob(String job) {
 		this.job = job;
 	}
-
-
-
-
-
 	public String getAddress() {
 		return address;
 	}
-
-
-
-
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-
-
-
-
 	@Override
 	public String toString() {
 		return "MemberVO [name=" + name + ", age=" + age + ", gender=" + gender + ", job=" + job + ", address=" + address

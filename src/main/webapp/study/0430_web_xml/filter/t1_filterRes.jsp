@@ -19,7 +19,8 @@
 	<div class="container">
 		<h2>여기는 t1_filterRes입니다</h2>
 		<div>
-			메세지: ${msg}
+			<span class="mt-3 mb-3">메세지: ${msg}</span><br/><br/>
+			<span class="mt-3 mb-3">메세지: ${msg}</span>
 		</div>
 		<div><a href="${ctp}/study/0430_web_xml/filter/t1_filter.jsp" class="btn btn-outline-danger">Back</a></div>
 	</div>

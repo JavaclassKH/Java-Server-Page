@@ -3,7 +3,7 @@
 <%
 	String cookieOk = "";
 
-	if(cookieOk.equals('y')){
+	if(cookieOk.equals("y")){
 		String mid = "hkd1234";
 		Cookie cookieMid = new Cookie("cMid", mid);
 		// 쿠키의 만료시간(초)을 준다 1일 : 60*60*24 = ?

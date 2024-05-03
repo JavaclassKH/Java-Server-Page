@@ -2,12 +2,10 @@ package filter;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
 
+@WebFilter("/*")
 public class filterTest implements Filter {
 
 	@Override
@@ -15,10 +13,7 @@ public class filterTest implements Filter {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		System.out.println("1.  필터 수행 전입니다");
-		
 		chain.doFilter(request, response);
 		
-		System.out.println("2.  필터 수행 후입니다");
-	}
+	}	
 }
