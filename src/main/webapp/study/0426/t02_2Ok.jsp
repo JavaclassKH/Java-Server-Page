@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
 
 <!-- useBean : Class를 의미하는 액션 태그(클래스를 생성하여 쓸 수 있다) --> 
 <!-- id는 클래스 변수명 , class는 그대로 class로 생성! 클래스는 경로를 줘서 부른다 -->

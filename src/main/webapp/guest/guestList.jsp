@@ -89,7 +89,7 @@
 				<tr>
 					<th class="table-primary">성명</th>
 					<td>
-			<%-- 		<c:if test="${vo.hostIp == '192.168.50.20'}">선생님 : ${vo.name}</c:if>
+			 		<c:if test="${vo.hostIp == '192.168.50.20'}">선생님 : ${vo.name}</c:if>
 					<c:if test="${vo.hostIp == '192.168.50.51'}">이수연 : ${vo.name}</c:if>
 					<c:if test="${vo.hostIp == '192.168.50.52'}">김성현 : ${vo.name}</c:if>
 					<c:if test="${vo.hostIp == '192.168.50.53'}">최민영 : ${vo.name}</c:if>
@@ -112,8 +112,8 @@
 					vo.hostIp != '192.168.50.55' && vo.hostIp != '192.168.50.57' && vo.hostIp != '192.168.50.58' &&
 					vo.hostIp != '192.168.50.59' && vo.hostIp != '192.168.50.60' && vo.hostIp != '192.168.50.61' &&
 					vo.hostIp != '192.168.50.63' && vo.hostIp != '192.168.50.64' && vo.hostIp != '192.168.50.66' &&
-					vo.hostIp != '192.168.50.68' && vo.hostIp != '192.168.50.69' && vo.hostIp != '192.168.50.70'}">${vo.name}</c:if> --%>
-					${vo.name}
+					vo.hostIp != '192.168.50.68' && vo.hostIp != '192.168.50.69' && vo.hostIp != '192.168.50.70'}">${vo.name}</c:if>
+					<%-- ${vo.name} --%>
 					</td>
 					</tr>
 					<tr>

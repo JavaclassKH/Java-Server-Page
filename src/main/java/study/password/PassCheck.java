@@ -27,6 +27,7 @@ public class PassCheck extends HttpServlet {
 			int encPwd, decPwd;
 			encPwd = Integer.parseInt(pwd) ^ key;
 			System.out.println("인코딩된 pwd : " + encPwd);
+			request.setAttribute("encordingPwd1", encPwd);
 			System.out.println("앞에서 인코딩(암호화)된 pwd를 DB에 저장");
 			System.out.println("----------------------------------------------");
 			System.out.println("DB에 저장된 pwd를 다시 불러와서 디코딩(복호화)한다");
@@ -70,7 +71,7 @@ public class PassCheck extends HttpServlet {
 			
 			// 다시 로그인할 때 DB의 비밀번호를 가져와서 복호화 시켜준다
 			long decPwd;
-			intPwd = Long.parseLong(strPwd);
+			intPwd = Long.parseLong(strPwd.substring(9));
 			decPwd = intPwd ^ key;
 			
 			System.out.println("디코딩된 strPwd : " + decPwd);
@@ -88,10 +89,10 @@ public class PassCheck extends HttpServlet {
 			}
 			System.out.println();
 			System.out.println("최종 복호화된 비밀번호(원본과 비교 기릿) : " + result);
+			request.setAttribute("encordingPwd2", strPwd);
 		}
 			
 		
-	
 	
 	}
 }
