@@ -1,11 +1,6 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% 
-  session.getLastAccessedTime();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");	
-	String lat = sdf.format(session.getLastAccessedTime());
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>

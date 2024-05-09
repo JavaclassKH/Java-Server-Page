@@ -13,54 +13,52 @@
   <script src = "${ctp}/js/woo.js"></script>
   <script>
     'use strict';
+	    let idCheckSw = 0;
+	    let nickCheckSw = 1;
     
-    let idCheckSw = 0;
-    let nickCheckSw = 0;
-    
-    let email1 = myform.email1.value.trim();
-    let email2 = myform.email2.value;
-    let email = email1 + "@" + email2;
-    
-    let tel1 = myform.tel1.value;
-    let tel2 = myform.tel2.value.trim();
-    let tel3 = myform.tel3.value.trim();
-    let tel = tel1 + "-" + tel2 + "-" + tel3;
-    
-    let postcode = myform.postcode.value + " ";   
-    let roadAddress = myform.roadAddress.value + " ";   
-    let detailAddress = myform.detailAddress.value + " ";   
-    let extraAddress = myform.extraAddress.value + " ";   
-    let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
-    
-    
-    
-    function fCheck() {
-    	// 유효성 검사.....
-    	// 정규식을 이용한 유효성 검사..
-    	
-    	
-    	// 검사를 끝내고 필요한 내역들을 변수에 담아 회원가입처리한다.
-    	
-    	
-    	
-    	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
-			
-    	if(idCheckSw == 0) {
-    		alert("아이디 중복체크를 시행해주세요");
-    		document.getElementById("midBtn").focus();
-    	} 
-    	else if(nickCheckSw == 0) {    		
-    		alert("닉네임 중복체크를 시행해주세요");
-    		document.getElementById("nickNameBtn").focus();
-    	}
-    	else {
-    		myform.email.value = email;
-    		myform.tel.value = tel;
-    		myform.address.value = address;
-    		
-    		myform.submit();
-    	}
-    }
+ 	   	function fCheck() {
+	    
+		    let email1 = myform.email1.value.trim();
+		    let email2 = myform.email2.value;
+		    let email = email1 + "@" + email2;
+		    
+		    let tel1 = myform.tel1.value;
+		    let tel2 = myform.tel2.value.trim();
+		    let tel3 = myform.tel3.value.trim();
+		    let tel = tel1 + "-" + tel2 + "-" + tel3;
+		    
+		    let postcode = myform.postcode.value + " ";   
+		    let roadAddress = myform.roadAddress.value + " ";   
+		    let detailAddress = myform.detailAddress.value + " ";   
+		    let extraAddress = myform.extraAddress.value + " ";   
+		    let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
+		    
+	    	// 유효성 검사.....
+	    	// 정규식을 이용한 유효성 검사..
+	    	
+	    	
+	    	// 검사를 끝내고 필요한 내역들을 변수에 담아 회원가입처리한다.
+	    	
+	    	
+	    	
+	    	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
+				
+	    	if(idCheckSw == 0) {
+	    		alert("아이디 중복체크를 시행해주세요");
+	    		document.getElementById("midBtn").focus();
+	    	} 
+	    	else if(nickCheckSw == 0) {    		
+	    		alert("닉네임 중복체크를 시행해주세요");
+	    		document.getElementById("nickNameBtn").focus();
+	    	}
+	    	else {
+	    		myform.email.value = email;
+	    		myform.tel.value = tel;
+	    		myform.address.value = address;
+	    		
+	    		myform.submit();
+	    	}
+   	 }
     
     // 아이디 중복체크
     function idCheck() {
@@ -71,20 +69,18 @@
     		myform.mid.focus();
     	}
     	else{
-    		idCheckSw = 1;
-    		$("#midBtn").attr("",);
 	    	$.ajax({
 					url : "${ctp}/MemberIdCheck.mem",
 					type : "get",
 					data : { mid : mid },
 					success : function(res) {
-						if(res != 0) {
+						if(res == 1) {
 							alert("이미 사용중인 아이디입니다.");
 							myform.mid.focus();
-							idCheckSw = 0;
 						}
 						else {
 							alert("사용 가능한 아이디입니다.");
+							idCheckSw = 1;
 						}
 					},
 					error : function() {
@@ -92,9 +88,36 @@
 					}
 	    	});    		
     	}
-    		
-
+    }
+    
+    // 닉네임 중복체크
+    function nickCheck() {
+    	let nickName = myform.nickName.value;
     	
+    	if(nickName.trim() == ""){
+    		alert("닉네임을 입력하세요");
+    		myform.nickName.focus();
+    	}
+    	else{
+	    	$.ajax({
+					url : "${ctp}/MemberIdCheck.mem",
+					type : "get",
+					data : { nickName : nickName },
+					success : function(res) {
+						if(res == 1) {
+							alert("이미 사용중인 닉네임입니다.");
+							myform.mid.focus();
+						}
+						else {
+							alert("사용 가능한 닉네임입니다.");
+							nickCheckSw = 1;
+						}
+					},
+					error : function() {
+						alert("전송 오류");
+					}
+	    	});    		
+    	}
     }
     
   </script>

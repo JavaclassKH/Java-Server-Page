@@ -17,10 +17,7 @@ public class MemberDAO {
 	private String sql = "";
 	
 	
-	public MemberDAO() {
-		if(conn == conn2) System.out.println("Same 객체");
-		else System.out.println("Diffrent 객체");
-	}
+	public MemberDAO() {}
 	
 	public void pstmtClose() {
 		if(pstmt != null) {
@@ -82,6 +79,53 @@ public class MemberDAO {
 		}
 		return vo;
 	}
+
+	// 회원가입 처리
+	public int setMemberJoinOk(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into member values (default,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default,default,default,default,default,default,default)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getNickName());
+			pstmt.setString(4, vo.getName());
+			pstmt.setString(5, vo.getGender());
+			pstmt.setString(6, vo.getBirthday());
+			pstmt.setString(7, vo.getTel());
+			pstmt.setString(8, vo.getAddress());
+			pstmt.setString(9, vo.getEmail());
+			pstmt.setString(10, vo.getHomePage());
+			pstmt.setString(11, vo.getJob());
+			pstmt.setString(12, vo.getHobby());
+			pstmt.setString(13, vo.getPhoto());
+			pstmt.setString(14, vo.getContent());
+			pstmt.setString(15, vo.getUserInfor());
+			res = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			System.out.println("SQL오류(회원가입) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return res;
+	}
+
+	 // 일일방문카운트, 총 유저 방문카운트 세기
+	 public void setvisitCntsControl(String mid) {
+		 int res = 0;
+		 sql = "update member set todayCnt = todayCnt + 1 , visitCnt = visitCnt + 1 where mid = ?";
+		 try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+				System.out.println("SQL 오류(방문카운트) : " + e.getMessage());
+		} finally {
+				pstmtClose();
+		}	
+		 
+	 }
 	
 	
 	
