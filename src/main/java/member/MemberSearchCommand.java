@@ -17,5 +17,4 @@ public class MemberSearchCommand implements MemberInterface {
 		
 		request.setAttribute("vo", vo);
 	}
-
 }

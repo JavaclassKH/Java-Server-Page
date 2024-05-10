@@ -30,7 +30,7 @@
 		    let postcode = myform.postcode.value + " ";   
 		    let roadAddress = myform.roadAddress.value + " ";   
 		    let detailAddress = myform.detailAddress.value + " ";   
-		    let extraAddress = myform.extraAddress.value + " ";   
+		    let extraAddress = myform.extraAddress.value + "  ";   
 		    let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
 		    
 	    	// 유효성 검사.....
@@ -42,12 +42,7 @@
 	    	
 	    	
 	    	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
-				
-	    	if(idCheckSw == 0) {
-	    		alert("아이디 중복체크를 시행해주세요");
-	    		document.getElementById("midBtn").focus();
-	    	} 
-	    	else if(nickCheckSw == 0) {    		
+	    	if(nickCheckSw == 0) {    		
 	    		alert("닉네임 중복체크를 시행해주세요");
 	    		document.getElementById("nickNameBtn").focus();
 	    	}
@@ -59,36 +54,6 @@
 	    		myform.submit();
 	    	}
    	 }
-    
-    // 아이디 중복체크
-    function idCheck() {
-    	let mid = myform.mid.value;
-    	
-    	if(mid.trim() == ""){
-    		alert("아이디를 입력하세요");
-    		myform.mid.focus();
-    	}
-    	else{
-	    	$.ajax({
-					url : "${ctp}/MemberIdCheck.mem",
-					type : "get",
-					data : { mid : mid },
-					success : function(res) {
-						if(res == 1) {
-							alert("이미 사용중인 아이디입니다.");
-							myform.mid.focus();
-						}
-						else {
-							alert("사용 가능한 아이디입니다.");
-							idCheckSw = 1;
-						}
-					},
-					error : function() {
-						alert("전송 오류");
-					}
-	    	});    		
-    	}
-    }
     
     // 닉네임 중복체크
     function nickCheck() {
@@ -127,8 +92,8 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated">
-    <h2>회 원 가 입</h2>
+  <form name="myform" method="post" action="${ctp}/MemberUpdateOk.mem" class="was-validated">
+    <h2><b>회&nbsp;&nbsp; 원&nbsp;&nbsp; 정&nbsp;&nbsp; 보&nbsp;&nbsp; 수&nbsp;&nbsp; 정&nbsp;&nbsp;</b></h2>
     <br/>
     <div class="form-group">
 			아이디
@@ -202,16 +167,16 @@
     <div class="form-group">
       <label for="address">주소</label>
       <div class="input-group mb-1">
-        <input type="text" name="postcode" value="${postcode}" id="sample6_postcode" class="form-control">
+        <input type="text" name="postcode" placeholder="${postcode}" id="sample6_postcode" class="form-control">
         <div class="input-group-append">
           <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary">
         </div>
       </div>
-      <input type="text" name="roadAddress" value="${roadAddress}" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1">
+      <input type="text" name="roadAddress" placeholder="${roadAddress}" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1">
       <div class="input-group mb-1">
-        <input type="text" name="detailAddress" value="${detailAddress}" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
+        <input type="text" name="detailAddress" placeholder="${detailAddress}" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
         <div class="input-group-append">
-          <input type="text" name="extraAddress" value="${extraAddress}"  id="sample6_extraAddress" placeholder="참고항목" class="form-control">
+          <input type="text" name="extraAddress" placeholder="${extraAddress}"  id="sample6_extraAddress" placeholder="참고항목" class="form-control">
         </div>
       </div>
     </div>
@@ -268,6 +233,7 @@
     <input type="hidden" name="email" />
     <input type="hidden" name="tel" />
     <input type="hidden" name="address" />
+    <input type="hidden" name="mid" value="${sMid}" />
   </form>
 </div>
 <p><br/></p>

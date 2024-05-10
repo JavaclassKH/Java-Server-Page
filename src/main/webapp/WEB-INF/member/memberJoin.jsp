@@ -30,7 +30,7 @@
 		    let postcode = myform.postcode.value + " ";   
 		    let roadAddress = myform.roadAddress.value + " ";   
 		    let detailAddress = myform.detailAddress.value + " ";   
-		    let extraAddress = myform.extraAddress.value + " ";   
+		    let extraAddress = myform.extraAddress.value + "  ";   
 		    let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
 		    
 	    	// 유효성 검사.....
