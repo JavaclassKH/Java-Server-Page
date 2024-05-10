@@ -1,6 +1,7 @@
 package member;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +48,9 @@ public class MemberJoinOkCommand implements MemberInterface {
 		
 		// 비밀번호 암호화(SHA-256 / 8-4-4-4-12) + salt key(UUID코드중 앞 자리 8자리와 같이)를 만들어 암호화 처리
 		SecurityUtil security = new SecurityUtil();
-		pwd = security.encryptSHA256(pwd);
+		String saltkey = UUID.randomUUID().toString().substring(0, 8);
+		pwd = security.encryptSHA256(saltkey + pwd);
+		pwd = saltkey + pwd;
 		
 		vo = dao.getMemberIdCheck(mid);
 		if(vo.getMid() != null) {
@@ -55,6 +58,7 @@ public class MemberJoinOkCommand implements MemberInterface {
 			request.setAttribute("url", "MemberJoin.mem");
 			return;
 		}
+		
 		
 
 		// saltkey 사용시엔 'saltkey+pwd' 하여 저장시켜준다

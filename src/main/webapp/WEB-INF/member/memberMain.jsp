@@ -18,19 +18,22 @@
 		<br/><hr/>
 		<!-- 실시간 비밀채팅 만들기 -->
 		<br/><hr/>
-		<div>
-			<p>현재 <font color="navy"><b>${sNickName}</b></font>님이 로그인 중입니다.</p>
-			<p>총 방문횟수 : ___ 회</p>
-			<p>오늘 방문횟수 : ___ 회</p>
-			<p>보유 포인트 : ___ p</p>
+		<div class="row">
+			<div class="col">
+				<p class="mb-2">현재 <font color="navy"><b>${sNickName}</b></font>(<font color="red">${strLevel}</font>)님이 로그인 중입니다.</p>
+				<p class="mb-2">총 방문횟수 : ${mVo.visitCnt} 회</p>
+				<p class="mb-2">오늘 방문횟수 : ${mVo.todayCnt} 회</p>
+				<p class="mb-2">보유 포인트 : ${mVo.point} p</p>
+			</div>
+			<div class="col">
+				<p><img src = "${ctp}/images/member/${mVo.photo}" width="250px" /></p>
+			</div>
 		</div>
-		<hr/>
 		<div>
-			<h4><b>활동내역</b></h4>
-			<p>방명록 등록 글 수 : __개</p>
+			<h4 class="mt-4"><b>활동내역</b></h4>
+			<p>방명록 등록 글 수 : ${guestCnt}개</p>
 			<p>게시판 등록 글 수 : __개</p>
 			<p>자료실 등록 글 수 : __개</p>
-			
 		</div>
 	</div>
 <p><br/></p>

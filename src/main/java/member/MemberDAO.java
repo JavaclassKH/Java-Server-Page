@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import common.GetConn;
 
 public class MemberDAO {
@@ -37,7 +39,7 @@ public class MemberDAO {
 			}
 	}
 
-	// 로그인시 아이디 체크하기
+	// 로그인시 아이디 체크하기 , 개인회원정보!
 	public MemberVO getMemberIdCheck(String mid) {
 		MemberVO vo = new MemberVO();
 		
@@ -111,23 +113,80 @@ public class MemberDAO {
 		return res;
 	}
 
-	 // 일일방문카운트, 총 유저 방문카운트 세기
-	 public void setvisitCntsControl(String mid) {
-		 int res = 0;
-		 sql = "update member set todayCnt = todayCnt + 1 , visitCnt = visitCnt + 1 where mid = ?";
+  // // 로그인 시 변경된 정보들(방문카운트 포인트 등)을 DB에 업데이트
+	public void setLoginUpdate(MemberVO vo) { 
+		 sql = "update member set point = ?, lastDate = now(), visitCnt = visitCnt + 1, todayCnt = ? where mid = ?";
+
 		 try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mid);
-			res = pstmt.executeUpdate();
-		} catch (SQLException e) {
-				System.out.println("SQL 오류(방문카운트) : " + e.getMessage());
-		} finally {
-				pstmtClose();
-		}	
-		 
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setInt(1, vo.getPoint());
+			 pstmt.setInt(2, vo.getTodayCnt());
+			 pstmt.setString(3, vo.getMid());
+			 pstmt.executeUpdate();
+		 } catch (SQLException e) {
+			 	System.out.println("SQL 오류(방문카운트,포인트,오늘접속날짜) : " + e.getMessage());
+		 }		 
 	 }
-	
-	
+
+	// 전체회원 가입리스트
+	public ArrayList<MemberVO> getMemberlist() {
+		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
+		
+		try {
+			sql = "select * from member order by idx";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new MemberVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setName(rs.getString("name"));
+				vo.setGender(rs.getString("gender"));
+				vo.setBirthday(rs.getString("birthday"));
+				vo.setTel(rs.getString("tel"));
+				vo.setAddress(rs.getString("address"));
+				vo.setEmail(rs.getString("email"));
+				vo.setHomePage(rs.getString("homePage"));
+				vo.setJob(rs.getString("job"));
+				vo.setHobby(rs.getString("hobby"));
+				vo.setPhoto(rs.getString("photo"));
+				vo.setContent(rs.getString("content"));
+				vo.setUserInfor(rs.getString("userInfor"));
+				vo.setUserDel(rs.getString("userDel"));
+				vo.setPoint(rs.getInt("point"));
+				vo.setLevel(rs.getInt("level"));
+				vo.setVisitCnt(rs.getInt("visitCnt"));
+				vo.setStartDate(rs.getString("startDate"));
+				vo.setLastDate(rs.getString("lastDate"));
+				vo.setTodayCnt(rs.getInt("todayCnt"));
+				
+				vos.add(vo);
+			}			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(전체회원리스트) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}
+		return vos;
+	}
+
+	// 비밀번호 변경!
+	public int setMemberPwdChange(String mid, String pwd) {
+		int res = 0;
+		 try {
+			 sql = "update member set pwd = ? where mid = ?";
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1, pwd);
+			 pstmt.setString(2, mid);
+			 res = pstmt.executeUpdate();
+		 } catch (SQLException e) {
+			 	System.out.println("SQL 오류(비밀번호 수정) : " + e.getMessage());
+		 }		 
+		 return res;
+	 }
 	
 	
 	

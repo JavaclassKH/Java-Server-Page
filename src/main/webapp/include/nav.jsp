@@ -20,6 +20,8 @@
 	      <li class="nav-item">
 	        <a class="nav-link ml-5" href="#">게시판</a>
 	      </li>
+	    </c:if>
+	    <c:if test="${level <= 4 && (level > 1 || level == 0)}">
 	      <li class="nav-item">
 	        <a class="nav-link ml-5 mr-2" href="#">자료실</a>
 	      </li>        
@@ -41,6 +43,7 @@
 					    <a class="dropdown-item" href="https://www.youtube.com/watch?v=--FmExEAsM8" target="_blank">ELEVEN 뮤직비디오</a>
 					  </div>
 					</div>
+				</li>
 	      <li class="nav-item">
 	        <!-- <a class="nav-link ml-2" href="#">Study</a> -->
 	        <div class="dropdown dropright">
@@ -65,6 +68,7 @@
 					    <a class="dropdown-item" href="<%=request.getContextPath()%>/study/database/LoginList">데이터베이스</a>
 					  </div>
 					</div>
+				</li>
 	      <li class="nav-item">
 	        <!-- <a class="nav-link ml-2" href="#">Study</a> -->
 	        <div class="dropdown dropright">
@@ -79,6 +83,7 @@
 					    <a class="dropdown-item" href="${ctp}/mapping/Test4.do4">확장자 맵핑연습4(URL패턴)</a>
 					  </div>
 					</div>
+				</li>
 				<li class="nav-item">
 	        <div class="dropdown dropright">
 					  <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split ml-3 mr-3" data-toggle="dropdown">
@@ -94,6 +99,26 @@
 					</div>
 				</li> 
 			</c:if>  	
+			<c:if test="${level <= 4}">
+	      <li class="nav-item">
+	        <div class="dropdown dropright">
+					  <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split ml-2 mr-2" data-toggle="dropdown">
+					    <font color="black"><b>마이페이지</b></font>
+					  </button>
+ 					  <div class="dropdown-menu">
+					    <a class="dropdown-item" href="MemberMain.mem">로비</a>
+					    <c:if test="${level <= 4 && (level > 1 || level == 0)}">
+					    	<a class="dropdown-item" href="#">일정관리</a>
+					    	<a class="dropdown-item" href="#">메세지관리</a>
+					    	<a class="dropdown-item" href="MemberList.mem">회원리스트</a>
+					    </c:if>
+					    <a class="dropdown-item" href="MemberPwdCheck.mem">회원정보수정</a>
+					    <a class="dropdown-item" href="MemberDelete.mem"><font color="red"><b>회원탈퇴</b></font></a>
+					    <c:if test="${level == 0}"><a class="dropdown-item" href="#">관리자전용</a></c:if>
+					  </div>
+					</div>
+				</li>
+			</c:if>	
 					<li class="nav-item">
 					<c:if test="${level <= 4}"><a class="nav-link " href="${ctp}/MemberLogout.mem" class="btn btn-link">Logout</a></c:if>
 	        <c:if test="${level > 4}"><a class="nav-link " href="${ctp}/MemberLogin.mem" class="btn btn-link">Login</a></c:if>  	       
