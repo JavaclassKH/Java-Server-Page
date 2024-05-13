@@ -15,9 +15,8 @@
 <p><br/></p>
 	<div class="container">
 		<h1><b>인증회원 전용 메인 로비, 환영합니다!</b></h1>
-		<br/><hr/>
+		<br/><hr/><br/>
 		<!-- 실시간 비밀채팅 만들기 -->
-		<br/><hr/>
 		<div class="row">
 			<div class="col">
 				<p class="mb-2">현재 <font color="navy"><b>${sNickName}</b></font>(<font color="red">${strLevel}</font>)님이 로그인 중입니다.</p>

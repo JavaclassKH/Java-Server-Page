@@ -1,13 +1,20 @@
+<%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri ="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%
+	Date date = new Date();
+	SimpleDateFormat sdf = new SimpleDateFormat("HH시 mm분 ss초");
+	String time = sdf.format(date);
+	session.setAttribute("time", time);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <title>해야 & Accendio</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <%@ include file = "../../include/bs4.jsp" %>  <!-- 부트스트랩(bs4) -->
+  <%@ include file = "../../include/bs4.jsp" %> 
   <style>
   .fakeimg {
     height: 200px;
@@ -23,8 +30,8 @@
 <div class="container" style="margin-top:30px">
   <div class="row">
     <div class="col-sm-4">
-      <h2>About Me(${sName})</h2>
-      <h4><span>현재 시간 : </span></h4>
+      <h2>About Me (<font color="yellow">${sNickName}</font>)</h2>
+      <h4><span>현재 시간 : ${time}</span></h4>
       <div class="fakeimg"><img src="<%=request.getContextPath() %>/images/111.jpg" width="350px" height="200px"/></div>
       <p>뮤지컬 드라큘라 중 넘버 It's Over</p>
       <h3>Some Links</h3>

@@ -45,15 +45,20 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		vo.setPhoto(photo);
 		vo.setContent(content);
 		vo.setUserInfor(userInfor);				
-		vo.setUserInfor(userInfor);				
 		vo.setMid(mid);			
 		
 		int res = dao.setMemberUpdate(vo);
 		
 		if(res != 0) {
+			session.setAttribute("sNickname", vo.getNickName());
 			request.setAttribute("message", "정보수정이 완료되었습니다");
 			request.setAttribute("url", "MemberUpdate.mem");
+			
 		}	
+		else {
+			request.setAttribute("message", "정보수정에 실패하였습니다");
+			request.setAttribute("url", "MemberUpdate.mem");			
+		}
 		
 		
 	}

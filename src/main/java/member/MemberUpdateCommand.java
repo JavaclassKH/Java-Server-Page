@@ -19,26 +19,21 @@ public class MemberUpdateCommand implements MemberInterface {
 
 		// 전화번호 분리하기 (-)
 		String[] tels = vo.getTel().split("-");
-
-		if (tels[1].equals(" "))
-			tels[1] = "";
-		if (tels[2].equals(" "))
-			tels[2] = "";
-
+		for(int i=0; i<=tels.length - 1; i++) {
+			if (tels[i].equals(" "))
+				tels[i] = "";
+		}	
+		
 		request.setAttribute("tel1", tels[0]);
 		request.setAttribute("tel2", tels[1]);
 		request.setAttribute("tel3", tels[2]);
 
 		// 주소 분리하기
 		String[] address = vo.getAddress().split("/");		
-		 if(address[0].equals(" ")) address[0] = ""; 
-		 else  address[0] = address[0];
-		 if(address[1].equals(" ")) address[1] = ""; 
-		 else  address[1] = address[1];
-		 if(address[2].equals(" ")) address[2] = "";
-		 else  address[2] = address[2];
-		 if(address[3].equals("  ")) address[3] = "";
-		 else  address[3] = address[3];	 
+		for(int i=0; i<=address.length - 1; i++) {
+			if(address[i].equals(" ")) address[0] = ""; 
+			else  address[i] = address[i];			
+		}
 
 		request.setAttribute("postcode", address[0]);
 		request.setAttribute("roadAddress", address[1]);

@@ -3,7 +3,6 @@ package study.j0429;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

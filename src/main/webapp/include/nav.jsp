@@ -86,7 +86,7 @@
 				</li>
 				<li class="nav-item">
 	        <div class="dropdown dropright">
-					  <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split ml-3 mr-3" data-toggle="dropdown">
+					  <button type="button" class="btn btn-outline-info dropdown-toggle dropdown-toggle-split ml-3 mr-3" data-toggle="dropdown">
 					    Study3
 					  </button>
 					  <div class="dropdown-menu">
@@ -95,6 +95,7 @@
 					    <a class="dropdown-item" href="${ctp}/ajaxTest3.st">AJAX연습(회원관리)</a>
 					    <a class="dropdown-item" href="${ctp}/uuidForm.st">UUID연습</a>
 					    <a class="dropdown-item" href="${ctp}/MemberLogin.mem">로그인연습</a>
+					    <a class="dropdown-item" href="BoardList.bo">게시판목록</a>
 					  </div>
 					</div>
 				</li> 
@@ -102,7 +103,7 @@
 			<c:if test="${level <= 4}">
 	      <li class="nav-item">
 	        <div class="dropdown dropright">
-					  <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split ml-2 mr-2" data-toggle="dropdown">
+					  <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split ml-2 mr-2" data-toggle="dropdown">
 					    <font color="black"><b>마이페이지</b></font>
 					  </button>
  					  <div class="dropdown-menu">
@@ -113,8 +114,8 @@
 					    	<a class="dropdown-item" href="MemberList.mem">회원리스트</a>
 					    </c:if>
 					    <a class="dropdown-item" href="MemberPwdCheck.mem">회원정보수정</a>
-					    <a class="dropdown-item" href="MemberDelete.mem"><font color="red"><b>회원탈퇴</b></font></a>
-					    <c:if test="${level == 0}"><a class="dropdown-item" href="#">관리자전용</a></c:if>
+					    <a class="dropdown-item" href="MemberDeleteCheck.mem"><font color="red"><b>회원탈퇴</b></font></a>
+					    <c:if test="${level == 0}"><a class="dropdown-item" href="AdminMain.ad">관리자전용</a></c:if>
 					  </div>
 					</div>
 				</li>

@@ -16,7 +16,7 @@
 <jsp:include page="/include/header.jsp" />
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
-    <h2 class="text-center">개  별  회  원  정  보</h2>
+    <h2 class="text-center"><b><font color="blue">개  별  회  원  정  보</font></b></h2>
    	<div>
 			<table class="table table-hover">
 				<tr class="text-dark table-primary text-center">
@@ -55,7 +55,7 @@
 					</tr>
 				<tr><td colspan="15" class="m-0 p-0"></td></tr>
 			</table>
-			<div class="text-center"><a href="javascript:history.back()" class="btn btn-outline-danger btn-lg"><font color="darkred">돌아가기</font></a></div>
+			<div class="text-center"><a href="javascript:window.close();" class="btn btn-outline-danger btn-lg"><font color="darkred">돌아가기</font></a></div>
 		</div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />

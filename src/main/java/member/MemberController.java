@@ -53,11 +53,13 @@ public class MemberController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+		
 		else if(level > 4) {
 			request.setAttribute("message", "로그인 후 이용해주세요");
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
 			viewPage = "/include/message.jsp";
 		}
+		
 		else if(com.equals("/MemberMain")) {
 			command = new MemberMainCommand();
 			command.execute(request, response);
@@ -98,6 +100,14 @@ public class MemberController extends HttpServlet {
 		}
 		else if(com.equals("/MemberUpdateOk")) {
 			command = new MemberUpdateOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/MemberDeleteCheck")) {
+			viewPage += "/memberDeleteCheck.jsp";
+		}
+		else if(com.equals("/MemberDeleteCheckOk")) {
+			command = new MemberDeleteCheckOkCommand();
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}

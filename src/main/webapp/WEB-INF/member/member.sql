@@ -29,3 +29,13 @@ create table member (
   primary key (idx),
   unique(mid)
 );
+
+
+select lastDate, now() timestampdiff(day, lastDate, now()) form member;
+
+
+
+
+
+
+

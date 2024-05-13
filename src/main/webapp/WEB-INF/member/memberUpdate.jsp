@@ -59,11 +59,11 @@
     function nickCheck() {
     	let nickName = myform.nickName.value;
     	
-    	if(nickName.trim() == ""){
+    	if(nickName.trim() == "") {
     		alert("닉네임을 입력하세요");
     		myform.nickName.focus();
     	}
-    	else{
+    	else {
 	    	$.ajax({
 					url : "${ctp}/MemberIdCheck.mem",
 					type : "get",
