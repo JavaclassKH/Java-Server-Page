@@ -18,7 +18,7 @@
       </li>
 			<c:if test="${level <= 4}">
 	      <li class="nav-item">
-	        <a class="nav-link ml-5" href="#">게시판</a>
+	        <a class="nav-link ml-5" href="BoardList.bo">게시판</a>
 	      </li>
 	    </c:if>
 	    <c:if test="${level <= 4 && (level > 1 || level == 0)}">

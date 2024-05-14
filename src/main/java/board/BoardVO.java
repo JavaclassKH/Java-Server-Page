@@ -13,6 +13,14 @@ public class BoardVO {
 	private int good;
 	
 	
+	
+	
+	private int hour_diff; // 게시글 작성시간으로부터 24시간 경과여부 확인
+	private int date_diff; // 게시글 작성일로부터 1일 경과여부 확인
+	
+	
+	
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -73,18 +81,26 @@ public class BoardVO {
 	public void setGood(int good) {
 		this.good = good;
 	}
+	public int getHour_diff() {
+		return hour_diff;
+	}
+	public void setHour_diff(int hour_diff) {
+		this.hour_diff = hour_diff;
+	}
+	public int getDate_diff() {
+		return date_diff;
+	}
+	public void setDate_diff(int date_diff) {
+		this.date_diff = date_diff;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
 				+ content + ", readNum=" + readNum + ", hostIp=" + hostIp + ", openSw=" + openSw + ", wDate=" + wDate
-				+ ", good=" + good + "]";
+				+ ", good=" + good + ", hour_diff=" + hour_diff + ", date_diff=" + date_diff + "]";
 	}
-	
-	
-	
-	
 	
 	
 }

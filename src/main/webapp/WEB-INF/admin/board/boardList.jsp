@@ -21,8 +21,6 @@
 	</script>
 </head>
 <body>
-<%@ include file = "/include/header.jsp" %>
-<%@ include file = "/include/nav.jsp" %>
 <p><br/></p>
 	<div class="container">
 			<table class="table table-borderless m-0 p-0">
@@ -30,7 +28,6 @@
 				<td colspan="2"><h1 class="text-center"><strong>자 유 게 시 판</strong></h1></td>
 			</tr>
 			<tr>
-				<td><c:if test="${sLevel != 1}"><a class="btn btn-outline-success" href="BoardInput.bo"><font color="silver">글쓰기</font></a></c:if></td>
 				<td class="text-right">
 	        <select name="pageSize" id="pageSize" onchange="pageSizeCheck()">
 	          <option ${pageSize==5  ? "selected" : ""}>5</option>
@@ -57,7 +54,7 @@
 					<tr class="text-center">
 						<td>${vo.idx}</td>
 						<td class="text-left">
-							<a class="btn btn-light btn-sm" href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
+							<a class="btn btn-light btn-sm" href="BoardContent.ad?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
 							<c:if test="${vo.hour_diff < 24}"><img src="${ctp}/images/new.gif" /></c:if>
 							<c:if test="${vo.hour_diff >= 24}"></c:if>
 						</td>
@@ -83,19 +80,18 @@
 			<!-- 블록페이지 시작 -->
 				<div class="text-center">
 				  <ul class="pagination justify-content-center">
-					  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
-					  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+					  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+					  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
 					  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
-					    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
-					    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+					    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/BoardList.ad?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+					    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
 					  </c:forEach>
-					  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
-					  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+					  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+					  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.ad?pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
 				  </ul>
 				</div>
 				<!-- 블록페이지 끝 -->
 		</div>
 <p><br/></p>
-<%@ include file = "/include/footer.jsp" %>
 </body>
 </html>

@@ -21,9 +21,19 @@ drop table board;
 
 select * from board;
 
+-- 시간단위, 23이 나오면 작성한지 23시간이 지났다는 것
+select *, timestampdiff(hour, wDate, now()) as hour_diff from board;
+
+-- 0은 오늘, -1은 하루 지남
+select *, datediff(wDate, now()) as date_diff from board;
+
+select *, timestampdiff(hour, wDate, now()) as hour_diff from board;
 
 
+select *, datediff(wDate, now()) as date_diff from board;
 
+select idx as nextIdx ,title as nextTitle from board where idx > 5 order by idx limit 1;  -- 다음글
+select idx as NextIdx ,title as behindTitle from board where idx < 5 order by idx desc limit 1;  -- 이전글
 
 
 

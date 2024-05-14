@@ -64,6 +64,38 @@
 			});
 		}
     
+/*     // 회원 여러명 등급 변경 처리
+    function membersLevelChange(e) {
+    	let ans = confirm("선택한 회원의 등급을 변경하시겠습니까?");
+    	if(!ans) {
+    		location.reload();
+    		return false;
+    	}
+    	
+    	let haveToChangeMembers = membersForm.value.split("/");
+    	let query = {
+    			level : items[0],
+    			idx   : items[1]
+    	}
+    	
+    	
+    	$.ajax({
+			url : "haveToChangeMembers.ad",
+			type : "post",
+			data : query, 
+			success : function(res) {
+				if(res != 0) {
+					alert("등급 수정 완료");
+					location.reload();
+				}
+				else alert("등급 수정 실패");
+			},
+			error : function() {
+				alert("전송오류");
+			}
+		});
+    } */
+    
     // 30일 경과 회원 삭제처리
     function memberDeleteOk(idx) {
 			let ans = confirm("선택회원 영구삭제");
@@ -86,6 +118,31 @@
     	}
     }
 		
+    // 라디오버튼 전체선택 
+    function checkAll() {
+        for(let i=0; i<=${fn:length(vos)}; i++) {
+            $("#members"+i).prop("checked",true);
+        }
+        }
+    
+    // 라디오버튼 전체해제
+    function UnCheckAll() {
+        for(let i=0; i<=${fn:length(vos)}; i++) {
+            $("#members"+i).prop("checked",false);        
+        }
+        }    
+    
+    // 라디오버튼 선택반전
+    function checkReserve() {
+        for(let i=0; i<=${fn:length(vos)}; i++) {
+          if($("#members"+i).is(":checked") == true) {
+                      $("#members"+i).prop('checked',false);
+          }
+          else {
+              $("#members"+i).prop('checked',true);
+          }
+        }
+    }
     
   </script>
 </head>
@@ -107,9 +164,22 @@
   </div>
   <hr/>
   <div id="totalList">
-	  <h3 class="text-center">전체 회원 리스트</h3>
+	  <div><h3 class="text-center">전체 회원 리스트</h3></div>
+	  <div class="text-right">
+			<input type="button" value="전체선택" onclick="checkAll()" class="btn btn-warning mb-3" />
+			<input type="button" value="전체해제" onclick="UnCheckAll()" class="btn btn-primary ml-3 mb-3" />
+			<input type="button" value="선택반전" onclick="checkReserve()" class="btn btn-success ml-3 mb-3 mr-8" />
+			<select name="membersLevelChange" onchange="membersLevelChange(this)" class="form-select form-select-lg ml-4">
+				<c:if test="${vo.level == 0}"><option value="0">관리자</option></c:if>
+				<option value="1">준회원</option>
+				<option value="2">정회원</option>
+				<option value="3">우수회원</option>
+				<option value="99">탈퇴신청회원</option>
+			</select>
+	  </div>
 	  <table class="table table-hover text-center">
 	    <tr class="table-primary text-dark">
+	    	<th>선택</th>
 	      <th>번호</th>
 	      <th>아이디</th>
 	      <th>닉네임</th>
@@ -126,6 +196,12 @@
 	        <c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청"/></c:if>
 	        <c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="정상활동"/></c:if>
 		      <tr>
+			      <td>
+		      		<form name="membersForm">
+		        		<c:set var="i" value="${st.index}" />
+		          	<input type="checkbox" id="members${i}" name="members" value="${vo.idx}" />
+		      		</form> 
+		    		</td>
 		        <td>${vo.idx}</td>
 		        <td><a href="MemberSearch.mem?mid=${vo.mid}" class="btn btn-outline-light btn-sm"><font color="black">${vo.mid}</font></a></td>
 		        <td>${vo.nickName}</td>
@@ -155,7 +231,7 @@
 		      </tr>
 	      </c:if>
 	    </c:forEach>
-	    <tr><td colspan="10" class="m-0 p-0"></td></tr>
+	    <tr><td colspan="11" class="m-0 p-0"></td></tr>
 	  </table>
   </div>
   <div id="userDispaly">
