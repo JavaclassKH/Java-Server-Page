@@ -44,7 +44,6 @@ public class MemberController extends HttpServlet {
 		}
 		else if(com.equals("/MemberJoinOk")) {
 			command = new MemberJoinOkCommand();
-			System.out.println("MemberJoinOk 무사히 수행 완료");
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import admin.complain.ComplainVO;
 import common.GetConn;
 import member.MemberVO;
 
@@ -17,7 +18,6 @@ public class AdminDAO {
 	
 	private MemberVO vo = null;
 	private String sql = "";
-	
 	
 	public AdminDAO() {}
 	
@@ -128,6 +128,100 @@ public class AdminDAO {
 			pstmtClose();
 		}	
 		return res;
+	}
+
+	// 신고내용 저장
+	public int setBoardComplainInput(ComplainVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into complain values(default,?,?,?,?,default)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getPart());
+			pstmt.setInt(2, vo.getPartIdx());
+			pstmt.setString(3, vo.getCpMid());
+			pstmt.setString(4, vo.getCpContent());
+			res = pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println("SQL오류(신고내용 저장) : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}	
+		return res;
+	}
+
+	// 현재 게시글의 신고 유무 확인
+	public String getReportCheck(String part, int idx) {
+		String report = "NO";
+		
+		try {
+			sql = "select idx from complain where part = ? and partIdx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, part);
+			pstmt.setInt(2, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) report = "OK";
+			
+		} catch (Exception e) {
+			System.out.println("SQL오류(현재 게시글 신고여부 확인) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}	
+		return report;
+	}
+
+	// 신고글항목 전체조회!
+	public ArrayList<ComplainVO> ComplainList() {
+		ArrayList<ComplainVO> vos = new ArrayList<ComplainVO>();
+		ComplainVO vo = null;
+		try {
+			sql = "select date_format(c.cpDate, '%Y-%m-%d %H:%i') as cpDate, c.* , b.title as title , b.nickName as nickName, b.mid as mid, b.complain as complain "
+					+ "from complain c, board b where c.partIdx = b.idx order by idx desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new ComplainVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setPart(rs.getString("part"));
+				vo.setPartIdx(rs.getInt("partIdx"));
+				vo.setCpMid(rs.getString("cpMid"));
+				vo.setCpDate(rs.getString("cpDate"));
+				vo.setCpContent(rs.getString("cpContent"));
+				vo.setComplain(rs.getString("complain"));
+				
+				vo.setTitle(rs.getString("title"));
+				vo.setMid(rs.getString("mid"));
+				vo.setNickName(rs.getString("nickName"));
+				
+				vos.add(vo);
+			}
+		} catch (Exception e) {
+			System.out.println("SQL오류(신고글항목 전체조회) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}			
+		return vos;
+	}
+
+	// 신고글 게시판 공개 여부 조정 처리
+	public void setComplainNoShow(String part, int partIdx, String complain) {	
+		try {
+			if(complain.equals("NO")) {
+				sql = "update "+part+" set complain = 'OK' where idx = ?";				
+			}
+			else {
+				sql = "update "+part+" set complain = 'NO' where idx = ?";			
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, partIdx);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류(신고글 게시판 공개 여부 조정 처리) : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}			
 	}
 
 	

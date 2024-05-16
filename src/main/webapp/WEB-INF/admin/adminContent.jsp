@@ -21,7 +21,8 @@
 		 -->
 		<p>방명록 최근 글 : </p>
 		<p>게시판 최근 글 : </p>
-		<p>신규등록회원 : <a href=""><font color="green">${mCount}</font></a>건</p>
+		<p>신고글 개수(최근 일주일) :  </p>
+		<p>신규등록회원 : <a href="MemberList.ad?Level=1"><font color="green">${mCount}</font></a>건</p>
 		<p>탈퇴신청회원 : <a href=""><font color="red"><b>${m99Count}</b></font></a>건</p>
 	
 	</div>

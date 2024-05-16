@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import admin.AdminDAO;
+
+@SuppressWarnings("unchecked")
 public class BoardContentCommand implements BoardInterface {
 
 	@Override
@@ -17,14 +20,13 @@ public class BoardContentCommand implements BoardInterface {
 		int pag = request.getParameter("pag") == null ? 0 : Integer.parseInt(request.getParameter("pag"));
 		int pageSize = request.getParameter("pageSize") == null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
 		
-		
 		BoardDAO dao = new BoardDAO();
 		
 		// 조회수 어뷰징 방지
 		HttpSession session = request.getSession();
 		ArrayList<String> ContentReadNum = (ArrayList<String>)session.getAttribute("sContentIdx"); 
 		if(ContentReadNum == null) ContentReadNum = new ArrayList<String>();
-		String imsiContentReadNum = "Board" + idx;
+		String imsiContentReadNum = "board" + idx;
 		
 		if(!ContentReadNum.contains(imsiContentReadNum)) {
 			// 게시글 조회수 1씩 증가시키기
@@ -48,5 +50,11 @@ public class BoardContentCommand implements BoardInterface {
 		
 		request.setAttribute("preVo", preVo);
 		request.setAttribute("nextVo", nextVo);
+		
+		// 현재 게시글 신고여부 확인 
+		AdminDAO adminDao = new AdminDAO();
+		String report = adminDao.getReportCheck("board", idx); 
+		request.setAttribute("report", report);
+		
 	}
 }

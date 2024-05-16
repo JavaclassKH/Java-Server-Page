@@ -58,7 +58,7 @@ public class BoardDAO {
 	
 	
 	
-	
+	                      
 	
 	
 	
@@ -66,7 +66,7 @@ public class BoardDAO {
 	
 	====================================================================== */
 
-//전체 게시글 보기
+// 전체 게시글 보기
 	public ArrayList<BoardVO> getBoardList(int startIndexNo, int pageSize) {
 		ArrayList<BoardVO> vos = new ArrayList<BoardVO>();
 		try {

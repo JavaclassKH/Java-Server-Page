@@ -89,7 +89,53 @@
 				}
 			});
 		}
-	
+		
+		// 신고사유에서 기타 항목 선택 시 띄우는 텍스트박스 보여주기
+		function etcShow() {
+			$("#complainTxt").show();
+		}
+		
+		// 신고화면 선택 후 신고사항 전송하기
+		function complainCheck() {
+			if(!$("input[type=radio][name=complain]:checked").is(':checked')) {
+				alert("신고 항목을 선택해주세요");
+				return false;
+			}
+			if($("input[type=radio][id=complain7]:checked") && $("#complainTxt").val() == "") {
+				alert("기타 신고 사유를 입력해주세요");
+				return false;
+			} 
+			
+			let cpContent = complainModalForm.complain.value;
+			if(cpContent == '기타') cpContent += '/' + $("#complainTxt").val();
+
+			alert("신고내용 : " + cpContent);
+			
+			let query = {
+				part : "board",
+				partIdx : ${vo.idx},
+				cpMid : '${sMid}',
+				cpContent : cpContent
+			}
+			
+			$.ajax({
+				url : "BoardComplainInput.ad",
+				type : "post",
+				data : query,
+				success : function(res) {
+					if(res != 0) {
+						alert("신고가 완료되었습니다");
+						location.reload();
+					}
+					else alert("신고에 실패했습니다. 다시 시도해주세요");
+				},
+				error : function() {
+					alert("신고내용 전송에 오류가 발생했습니다.");
+				}
+			});
+		}
+		
+			
 	</script>
 </head>
 <body>
@@ -135,7 +181,13 @@
 					<input type="button" value="목록" onclick="location.href='BoardList.bo?pag=${pag}&pageSize=${pageSize}'" class="btn btn-info mr-3 mt-1 text-center" />
 					<c:if test="${sNickName == vo.nickName || sLevel == 0}">
 						<input type="button" value="수정" onclick="location.href='BoardUpdate.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}'" class="btn btn-warning mr-3 mt-1" />	
-						<input type="button" value="삭제" onclick="boardDelete()" class="btn btn-danger mt-1" />					
+						<input type="button" value="삭제" onclick="boardDelete()" class="btn btn-danger mt-1 mr-2" />					
+					</c:if>
+					<c:if test="${sNickName != vo.nickName}">
+						<c:if test="${report == 'OK'}"><font color="red" size="4.5em"><b>신고된 글입니다</b></font></c:if>
+						<c:if test="${report != 'OK'}">
+							<input type="button" value="신고하기" class="btn btn-danger btn-lg mt-1" data-toggle="modal" data-target="#myComplainModal" />											
+						</c:if>
 					</c:if>
 				</div>
 				</td>
@@ -156,6 +208,45 @@
 		</table>
 	</div>
 <p><br/></p>
+
+	<!-- 신고전용 모달 -->
+	<div class="modal fade" id="myComplainModal">
+		<div class="modal-dialog modal-dialog-centered modal-xl">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title text-center"><b>게시글 신고하기</b></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<strong><font color="red">신고사유선택</font></strong> 
+					<hr/>
+					<form name="complainModalForm">
+						<div>&nbsp;<input type="radio" name="complain" id="complain1" value="광고,홍보,영리목적" />&nbsp; 광고,홍보,영리목적</div>	
+						<div>&nbsp;<input type="radio" name="complain" id="complain2" value="욕설,비방,차별,혐오" />&nbsp; 욕설,비방,차별,혐오 </div>	
+						<div>&nbsp;<input type="radio" name="complain" id="complain3" value="불법정보" />&nbsp; 불법정보</div>	
+						<div>&nbsp;<input type="radio" name="complain" id="complain4" value="음란,청소년유해" />&nbsp; 음란물,청소년유해</div>	
+						<div>&nbsp;<input type="radio" name="complain" id="complain5" value="개인정보노출,유포" />&nbsp; 개인정보노출,유포</div>	
+						<div>&nbsp;<input type="radio" name="complain" id="complain6" value="도배,스팸" />&nbsp; 도배,스팸</div>												
+						<div>&nbsp;<input type="radio" name="complain" id="complain7" value="기타" onclick="etcShow()" />&nbsp; 기타 </div>				
+						<div id="etc"><textarea rows="3" id="complainTxt" class="form-control mt-2" style="display:none"></textarea></div>			
+						<hr/>
+						<input type="button" value="신고하기" onclick="complainCheck()" class="btn btn-danger btn-lg form-control" />					
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 <%@ include file = "/include/footer.jsp" %>
 </body>
 </html>

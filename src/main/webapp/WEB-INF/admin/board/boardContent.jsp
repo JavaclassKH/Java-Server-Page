@@ -97,45 +97,45 @@
 	<div class="container">
 		<h1 class="text-center mb-4"><b>게시판 글 조회</b></h1>
 		<table class="table table-bordered">
-			<tr>
-				<th class="table-info">작성자</th>
-				<td>${vo.nickName}</td>
-				<th class="table-info">작성날짜</th>
-				<td>${fn:substring(vo.wDate, 0, 16)}</td>
-			</tr>
-			<tr>
-				<th class="table-info">글조회수</th>
-				<td>${vo.readNum}</td>
-				<th class="table-info">작성자 IP</th>
-				<td>
-					<c:if test="${vo.hostIp == '192.168.50.64'}">관리자IP</c:if>
-					<c:if test="${vo.hostIp != '192.168.50.64'}">${vo.hostIp}</c:if>				
-				</td>
-			</tr>
-			<tr>
-				<th class="table-info">글 제목</th>
-				<td colspan="3" class="text-center">${vo.title} &nbsp;&nbsp;
-				(<a href="javascript:goodCheck()">❤</a>${vo.good}) &nbsp;
-				(<a href="javascript:goodCheckP()">👍</a>) &nbsp;
-				(<a href="javascript:goodCheckM()">👎</a>)
-				(<a href="javascript:goodCheck2()"><font color="blue" size="4">♥</font></a>${vo.good}) &nbsp;
-				</td>
-			</tr>
-			<tr>
-				<th class="table-success">글 내용</th>
-				<td colspan="3" style="height:250px;">
-				${fn:replace(vo.content, newLine,'<br/>')}
-				</td>
-			</tr>
-			<tr>
-				<td colspan="4" class="table-info text-right">
-				<div class="text-right">
-					<input type="button" value="목록" onclick="location.href='BoardList.ad?pag=${pag}&pageSize=${pageSize}'" class="btn btn-info mr-3 mt-1 text-center" />
-					<c:if test="${sNickName == vo.nickName || sLevel == 0}">
-					</c:if>
-				</div>
-				</td>
-			</tr>
+				<tr>
+					<th class="table-info">작성자</th>
+					<td>${vo.nickName}</td>
+					<th class="table-info">작성날짜</th>
+					<td>${fn:substring(vo.wDate, 0, 16)}</td>
+				</tr>
+				<tr>
+					<th class="table-info">글조회수</th>
+					<td>${vo.readNum}</td>
+					<th class="table-info">작성자 IP</th>
+					<td>
+						<c:if test="${vo.hostIp == '192.168.50.64'}">관리자IP</c:if>
+						<c:if test="${vo.hostIp != '192.168.50.64'}">${vo.hostIp}</c:if>				
+					</td>
+				</tr>
+				<tr>
+					<th class="table-info">글 제목</th>
+					<td colspan="3" class="text-center">${vo.title} &nbsp;&nbsp;
+					(<a href="javascript:goodCheck()">❤</a>${vo.good}) &nbsp;
+					(<a href="javascript:goodCheckP()">👍</a>) &nbsp;
+					(<a href="javascript:goodCheckM()">👎</a>)
+					(<a href="javascript:goodCheck2()"><font color="blue" size="4">♥</font></a>${vo.good}) &nbsp;
+					</td>
+				</tr>
+				<tr>
+					<th class="table-success">글 내용</th>
+					<td colspan="3" style="height:250px;">
+					${fn:replace(vo.content, newLine,'<br/>')}
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="table-info text-right">
+					<div class="text-right">
+						<input type="button" value="목록" onclick="location.href='BoardList.ad?pag=${pag}&pageSize=${pageSize}'" class="btn btn-info mr-3 mt-1 text-center" />
+						<c:if test="${sNickName == vo.nickName || sLevel == 0}">
+						</c:if>
+					</div>
+					</td>
+				</tr>
 		</table>
 		<br/>
 		<table class="table table-borderless"> <!-- 이전,다음글 출력용! -->

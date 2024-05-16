@@ -1,4 +1,4 @@
-package study2;
+package study2.hoewon;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import database.LoginDAO;
 import database.LoginVO;
+import study2.StudyInterface;
 
 public class HoewonInputCommand implements StudyInterface {
 

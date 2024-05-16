@@ -14,6 +14,7 @@ public class MemberIdCheckCommand implements MemberInterface {
 		
 		MemberDAO dao = new MemberDAO();
 		MemberVO vo = dao.getMemberIdCheck(mid);
+		request.setAttribute("vo", vo);
 		
 		String res = "0";
 		if(vo.getMid() != null) res = "1";

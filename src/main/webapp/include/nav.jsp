@@ -81,6 +81,8 @@
 					    <a class="dropdown-item" href="${ctp}/mapping/Test2.do">확장자 맵핑연습1(URL패턴)</a>
 					    <a class="dropdown-item" href="${ctp}/mapping/Test3.do3">확장자 맵핑연습3(URL패턴)</a>
 					    <a class="dropdown-item" href="${ctp}/mapping/Test4.do4">확장자 맵핑연습4(URL패턴)</a>
+					    <a class="dropdown-item" href="Modal1.st">Modal연습1(보여주기)</a>
+					    <a class="dropdown-item" href="Modal2.st">Modal연습2(값 제어)</a>
 					  </div>
 					</div>
 				</li>

@@ -23,8 +23,5 @@ public class MemberDeleteOkCommand implements AdminInterface {
 		else str = "0";
 		
 		response.getWriter().write(str);
-			
-		
 	}
-
 }

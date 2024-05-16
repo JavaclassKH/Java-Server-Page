@@ -30,7 +30,7 @@ public class BoardController extends HttpServlet {
 			
 		// 컨트롤러 작업지시
 		if(level > 4) {
-			request.setAttribute("message", "관리자 전용 페이지입니다.");
+			request.setAttribute("message", "회원 전용 페이지입니다.");
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
 			viewPage = "/include/message.jsp";
 		}

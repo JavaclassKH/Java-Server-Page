@@ -32,8 +32,8 @@
 				<tr>
 					<th>공개여부</th>
 					<td>
-					공개 &nbsp;&nbsp;<input type="radio" title="openSw" id="openSw1" value="OK" checked /> &nbsp;&nbsp;
-					비공개 &nbsp;&nbsp;<input type="radio" title="openSw" id="openSw2" value="NO" />
+					공개 &nbsp;&nbsp;<input type="radio" name="openSw" title="openSw" id="openSw1" value="OK" checked /> &nbsp;&nbsp;
+					비공개 &nbsp;&nbsp;<input type="radio" name="openSw" title="openSw" id="openSw2" value="NO" />
 					</td>
 				</tr>
 				<tr>

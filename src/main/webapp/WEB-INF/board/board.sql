@@ -9,6 +9,7 @@ hostIp varchar(40) not null,                 /* 글 작성자 IP */
 openSw char(6) default 'OK',                 /* 게시글 공개 여부 */
 wDate datetime default now(),                /* 글 작성 날짜 */
 good int default 0,                          /* 좋아요 수 */
+complainCnt char(4) default 'NO'						 /* 게시글 신고여부 */
 primary key(idx),                            /* 기본 키 : 고유번호 */
 foreign key(mid) references member(mid)      /* 외래 키 : 아이디 */ 
 ); 

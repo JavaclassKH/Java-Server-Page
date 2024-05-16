@@ -1,4 +1,4 @@
-package study2;
+package admin.complain;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,19 +7,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import database.LoginDAO;
-import database.LoginVO;
+import admin.AdminDAO;
+import admin.AdminInterface;
 
-public class HoewonMainCommand implements StudyInterface {
+public class ComplainListCommand implements AdminInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LoginDAO dao = new LoginDAO();
+		AdminDAO dao = new AdminDAO();
 		
-		ArrayList<LoginVO> vos = dao.getLoginAllList();
+		ArrayList<ComplainVO> vos = new ArrayList<ComplainVO>();
+		vos = dao.ComplainList();
 		
 		request.setAttribute("vos", vos);
-		
+		request.setAttribute("complainCnt", vos.size());
 	}
-
 }
