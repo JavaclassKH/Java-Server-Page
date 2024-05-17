@@ -78,7 +78,7 @@
 						<td>
 							${vo.nickName}
 							<c:if test="${sLevel == 0}">
-								<a href="#" onclick="modalCheck('${vo.hostIp}','${vo.mid}','${vo.nickName}',${vo.idx},${sLevel})" data-toggle="modal" data-target="#myModal" class="btn btn-outline-light">모달출력</a>
+								<a href="#" onclick="modalCheck('${vo.hostIp}','${vo.mid}','${vo.nickName}',${vo.idx},${sLevel})" data-toggle="modal" data-target="#myModal" class="btn btn-outline-light btn-sm">모달출력</a>
 							</c:if>
 						</td>
 						<td>

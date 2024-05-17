@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import board.BoardDAO;
 import board.BoardVO;
 
-public class Pagenation {
+public class Pagenation2 {
 
-	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String contentsShow, String section, String part) {
+	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String contentsShow, String part, String string) {
 		BoardDAO boardDao = new BoardDAO();
 //		PdsDAO pdsDao = new PdsDAO();
 		int totRecCnt = 0;
