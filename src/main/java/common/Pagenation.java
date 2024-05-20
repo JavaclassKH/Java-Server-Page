@@ -11,13 +11,28 @@ public class Pagenation {
 
 	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String contentsShow, String section, String part) {
 		BoardDAO boardDao = new BoardDAO();
-//		PdsDAO pdsDao = new PdsDAO();
+//		PdsDAO pdsDao = new PdsDAO(); // pds : Public Domain Software 
+		
+		// part의 값이 넘어올 경우	
+		String search = "" , searchString = ""; 
+		if(part != null && !part.equals("")) {
+			if(section.equals("board")) {
+				search = part.split("/")[0];
+				searchString = part.split("/")[1];
+			}
+		}
+		
 		int totRecCnt = 0;
 		
-		if(contentsShow.equals("board")) {
-			totRecCnt = boardDao.gettotRecCnt(); // 게시판의 전체 레코드수 구하기			
+		if(section.equals("board")) {
+			if(part == null || part.equals("")) {
+				totRecCnt = boardDao.gettotRecCnt(contentsShow, "", ""); // 게시판의 전체 레코드수 구하기							
+			}
+			else {				
+				totRecCnt = boardDao.gettotRecCnt(contentsShow, search, searchString); // 게시판의 전체 레코드수 구하기							
+			}
 		}
-		else if(contentsShow.equals("pds")) {
+		else if(section.equals("pds")) {
 			//totRecCnt = PdsDao.gettotRecCnt(); // 자료실의 전체 레코드수 구하기						
 		}
 		
@@ -33,10 +48,17 @@ public class Pagenation {
 		List<BoardVO> vos = null;
 		/* List<PdsVO> vos = null; */
 		
-		if(contentsShow.equals("board")) {
-			vos = boardDao.getBoardList(startIndexNo, pageSize);
+		if(section.equals("board")) {
+			if(part == null || part.equals("")) {
+				vos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, "", "");			
+			}
+			else {
+				search = part.split("/")[0];
+				searchString = part.split("/")[1];
+				vos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, search, searchString);								
+			}
 		}
-		else if(contentsShow.equals("pds")) {
+		else if(section.equals("pds")) {
 			//vos = PdsDao.getBoardList(startIndexNo, pageSize);
 		}
 		request.setAttribute("vos", vos);	
@@ -50,28 +72,18 @@ public class Pagenation {
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
 		
-		/* request.setAttribute("part", part); */
-
-		
-		
+		if(part != null && part.equals("")) {
+			String searchTitle = "";
+			if(search.equals("title")) searchTitle = "제목";
+			else if(search.equals("nickName")) searchTitle = "작성자";
+			else searchTitle = "내용";
+			request.setAttribute("searchTitle", searchTitle);
+			request.setAttribute("search", search);
+			request.setAttribute("searchString", searchString);
+			request.setAttribute("searchCount", totRecCnt);			
 	}
-	
-//  public static void pageChange(HttpServletRequest request, int pag, int pageSize) {	
-//    
-//   
-//	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
+	}	
 	
 }
 

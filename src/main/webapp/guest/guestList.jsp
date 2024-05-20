@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<% pageContext.setAttribute("nl", "\n"); %>
+<% 
+pageContext.setAttribute("nl", "\n"); 
+%>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -81,9 +83,10 @@
 			<table class="table table-bordered">
 				<tr>
 					<th class="col-2">No.${curScrStartNo}
-					<c:if test="${sAdmin == 'OK' || sName == vo.name}">
-						<a href="javascript:delCheck(${vo.idx})" class="btn btn-outline-danger ml-2">사악제에</a></th>									
+					<c:if test="${sMid == 'admin' || sMid == 'sona123'}">
+						<a href="javascript:delCheck(${vo.idx})" class="btn btn-outline-danger ml-2">사악제에</a>
 					</c:if>			
+					</th>									
 						<td class="text-right row-2 pr-5"><b><font color="darkred">작성자ip : ${vo.hostIp}</font></b></td>	
 				</tr> 
 				<tr>

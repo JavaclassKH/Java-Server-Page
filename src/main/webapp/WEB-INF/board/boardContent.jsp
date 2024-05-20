@@ -135,6 +135,61 @@
 			});
 		}
 		
+		// 댓글달기
+		function replyCheck() {
+			let content = document.getElementById("content").value;
+			if(content.trim() == "") {
+				alert("댓글을 입력하세요");
+				return;
+			}
+			let query = {
+				boardIdx : ${vo.idx},
+				mid : '${sMid}',
+				nickName : '${sNickName}',
+				hostIp : '${pageContext.request.remoteAddr}',
+				content : content
+			}
+			$.ajax({
+				url : "BoardReplyInput.bo",
+				type: "post",
+				data : query,
+				success : function(res) {
+					if(res != "0"){
+						alert("댓글이 정상적으로 작성되었습니다");
+						location.reload();
+					}
+					else {
+						alert("[error187]댓글 작성에 실패하였습니다");
+					}
+				},
+				error : function() {
+					alert("전송 오류");
+				}				
+			});
+		}
+		
+		// 댓글 삭제하기 
+		function replyDelete(idx) {
+			let ans = confirm("현재 댓글을 삭제하시겠습니까?");
+			if(!ans) return false;
+			
+			$.ajax({
+				url : "BoardReplyDelete.bo",
+				type : "post",
+				data : {idx : idx},
+				success : function(res) {
+					if(res != "0"){
+						alert("댓글 삭제가 완료되었습니다");
+						location.reload();
+					}
+					else alert("댓글 삭제에 실패했습니다");
+				},
+				error : function() {
+					alert("[error193] 댓글 삭제 실패");
+				}
+			});	
+		}
+		
 			
 	</script>
 </head>
@@ -178,7 +233,12 @@
 			<tr>
 				<td colspan="4" class="table-info text-right">
 				<div class="text-right">
+					<c:if test="${empty flag}">
 					<input type="button" value="목록" onclick="location.href='BoardList.bo?pag=${pag}&pageSize=${pageSize}'" class="btn btn-info mr-3 mt-1 text-center" />
+					</c:if>
+					<c:if test="${!empty flag}">
+					<input type="button" value="목록" onclick="location.href='BoardSearchList.bo?pag=${pag}&pageSize=${pageSize}&search=${search}&searchString=${searchString}'" class="btn btn-info mr-3 mt-1 text-center" />
+					</c:if>
 					<c:if test="${sNickName == vo.nickName || sLevel == 0}">
 						<input type="button" value="수정" onclick="location.href='BoardUpdate.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}'" class="btn btn-warning mr-3 mt-1" />	
 						<input type="button" value="삭제" onclick="boardDelete()" class="btn btn-danger mt-1 mr-2" />					
@@ -194,7 +254,8 @@
 			</tr>
 		</table>
 		<br/>
-		<table class="table table-borderless"> <!-- 이전,다음글 출력용! -->
+		<!-- 이전,다음글 출력용! -->
+		<table class="table table-borderless "> 
 			<tr>
 				<td>
 					<c:if test="${!empty nextVo.title}">
@@ -208,6 +269,52 @@
 		</table>
 	</div>
 <p><br/></p>
+
+	<!-- 댓글 시작! (리스트/입력) -->
+	<div class="container">
+		<!-- 댓글 리스트 출력 -->
+		<table class="table table-hover text-center">
+			<tr>
+				<th>작성자</th>
+				<th>내용</th>
+				<th>작성날짜</th>
+				<th>접속IP</th>
+			</tr>
+			<c:forEach var="replyVo" items="${replyVos}" varStatus="st">
+				<tr class="table table-info">
+					<td>
+						${replyVo.nickName}
+						<c:if test="${sMid == replyVo.mid || sLevel == 0}">
+							<a href="javascript:replyDelete(${replyVo.idx})" title="댓글삭제">X</a>
+						</c:if>
+					</td>
+					<td class="text-left">${fn:replace(replyVo.content, newline, '<br/>')}</td>
+					<td>${fn:substring(replyVo.wDate,0,10)}</td>
+					<td><font color="gold">${replyVo.hostIp}</font></td>
+				</tr>
+			</c:forEach>
+			<tr><td colspan="4" class="m-0 p-0"></td></tr>
+		</table>			
+		<!-- 댓글 입력창 -->
+		<br/>
+		<form name="replyForm">
+			<table class="table table-warning table-center">
+				<tr>
+					<td style="width:85%" class="text-left">
+						<span class="text-center"><b>댓글달기</b></span> 
+						<textarea rows="4" name="content" id="content" class="form-control mt-3"></textarea>
+					</td>
+					<td style="width:15%">
+						<br/>
+						<p>작성자 : ${sNickName}</p>
+						<p></p><br/>
+						<p><input type="button" value="등록" onclick="replyCheck()" class="btn btn-danger btn-sm" /></p>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 댓글 끝! -->
 
 	<!-- 신고전용 모달 -->
 	<div class="modal fade" id="myComplainModal">
@@ -247,6 +354,7 @@
 		</div>
 	</div>
 
+<br/><br/>
 <%@ include file = "/include/footer.jsp" %>
 </body>
 </html>

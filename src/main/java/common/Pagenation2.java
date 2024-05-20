@@ -15,7 +15,7 @@ public class Pagenation2 {
 		int totRecCnt = 0;
 		
 		if(contentsShow.equals("board")) {
-			totRecCnt = boardDao.gettotRecCnt(); // 게시판의 전체 레코드수 구하기			
+			totRecCnt = boardDao.gettotRecCnt(contentsShow, "",""); // 게시판의 전체 레코드수 구하기			
 		}
 		else if(contentsShow.equals("pds")) {
 			//totRecCnt = PdsDao.gettotRecCnt(); // 자료실의 전체 레코드수 구하기						
@@ -34,7 +34,7 @@ public class Pagenation2 {
 		/* List<PdsVO> vos = null; */
 		
 		if(contentsShow.equals("board")) {
-			vos = boardDao.getBoardList(startIndexNo, pageSize);
+			vos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, "", "");
 		}
 		else if(contentsShow.equals("pds")) {
 			//vos = PdsDao.getBoardList(startIndexNo, pageSize);

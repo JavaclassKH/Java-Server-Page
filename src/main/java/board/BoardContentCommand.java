@@ -19,7 +19,11 @@ public class BoardContentCommand implements BoardInterface {
 		int idx = request.getParameter("idx") == null ? 0 : Integer.parseInt(request.getParameter("idx"));
 		int pag = request.getParameter("pag") == null ? 0 : Integer.parseInt(request.getParameter("pag"));
 		int pageSize = request.getParameter("pageSize") == null ? 0 : Integer.parseInt(request.getParameter("pageSize"));
+		String flag = request.getParameter("flag") == null ? "" : request.getParameter("flag");
+		String search = request.getParameter("search") == null ? "" : request.getParameter("search");
+		String searchString = request.getParameter("searchString") == null ? "" : request.getParameter("searchString");
 		
+				
 		BoardDAO dao = new BoardDAO();
 		
 		// 조회수 어뷰징 방지
@@ -45,9 +49,6 @@ public class BoardContentCommand implements BoardInterface {
 		BoardVO preVo = dao.getPreNextSearch(idx, "preVo");
 		BoardVO nextVo = dao.getPreNextSearch(idx, "nextVo");
 		
-		System.out.println("이전" + preVo.getIdx());
-		System.out.println("다음" + nextVo.getIdx());
-		
 		request.setAttribute("preVo", preVo);
 		request.setAttribute("nextVo", nextVo);
 		
@@ -55,6 +56,25 @@ public class BoardContentCommand implements BoardInterface {
 		AdminDAO adminDao = new AdminDAO();
 		String report = adminDao.getReportCheck("board", idx); 
 		request.setAttribute("report", report);
+		request.setAttribute("flag", flag);
+		request.setAttribute("search", search);
+		request.setAttribute("searchString", searchString);
+		
+		// 댓글 화면에 표시 처리
+		ArrayList<BoardReplyVO> replyVos = new ArrayList<BoardReplyVO>();
+		replyVos = dao.getBoardReply(idx);	
+		
+		request.setAttribute("replyVos", replyVos);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 }

@@ -46,9 +46,6 @@ public class BoardContentCommand implements AdminInterface {
 		BoardVO preVo = dao.getPreNextSearch(idx, "preVo");
 		BoardVO nextVo = dao.getPreNextSearch(idx, "nextVo");
 		
-		System.out.println("이전" + preVo.getIdx());
-		System.out.println("다음" + nextVo.getIdx());
-		
 		request.setAttribute("preVo", preVo);
 		request.setAttribute("nextVo", nextVo);
 	}

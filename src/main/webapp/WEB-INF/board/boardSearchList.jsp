@@ -7,14 +7,14 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>boardList.jsp</title>
+	<title>boardSearchList.jsp</title>
 	<jsp:include page="/include/bs4.jsp" />
 	<script>
 		'use strict';
 		
 		function pageSizeCheck() {
 			let pageSize = $("#pageSize").val();
-			location.href="BoardList.bo?pageSize="+pageSize;
+			location.href="BoardSearchList.bo?search=${search}&searchString=${searchString}&pageSize="+pageSize;
 		}
 		
 		function modalCheck(hostIp, mid, nickName, idx, sLevel) {
@@ -40,7 +40,11 @@
 	<div class="container">
 			<table class="table table-borderless m-0 p-0">
 			<tr class="table-hover text-dark">
-				<td colspan="2"><h1 class="text-center"><strong>자 유 게 시 판</strong></h1></td>
+				<td colspan="2" class="text-center">				
+					<h1 class="text-center"><strong>자 유 게 시 판 검 색 결 과</strong></h1>
+					<font color="navy">${searchTitle}</font>(으)로 <font color="navy">${searchString}</font>(을)를 검색한 결과. 
+					(검색된 자료 <font color="navy">${searchCount}</font>건)		
+				</td>
 			</tr>
 			<tr>
 				<td><c:if test="${sLevel != 1}"><a class="btn btn-outline-success" href="BoardInput.bo"><font color="silver">글쓰기</font></a></c:if></td>
@@ -71,15 +75,14 @@
 					<tr class="text-center">
 						<td>${curScrStartNo}</td>
 						<td class="text-left">
-							<a class="btn btn-light btn-sm" href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}">${vo.title}</a>
+							<a class="btn btn-light btn-sm" href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&flag=search&search=${search}&searchString=${searchString}">${vo.title}</a>
 							<c:if test="${vo.hour_diff < 24}"><img src="${ctp}/images/new.gif" /></c:if>
 							<c:if test="${vo.hour_diff >= 24}"></c:if>
-							<c:if test="${vo.replyCount != 0}">(${vo.replyCount}개)</c:if>
 						</td>
 						<td>
 							${vo.nickName}
 							<c:if test="${sLevel == 0}">
-								<a href="#" onclick="modalCheck('${vo.hostIp}','${vo.mid}','${vo.nickName}',${vo.idx},${sLevel})" data-toggle="modal" data-target="#myModal" class="badge badge-outline-info badge-sm m-0 p-0"><font size="1px">정보조회</font></a>
+								<a href="#" onclick="modalCheck('${vo.hostIp}','${vo.mid}','${vo.nickName}',${vo.idx},${sLevel})" data-toggle="modal" data-target="#myModal" class="badge badge-outline-light badge-sm">모달출력</a>
 							</c:if>
 						</td>
 						<td>
@@ -92,7 +95,7 @@
 							<c:if test="${vo.mid != 'admin' && vo.mid != 'sona123'}">${vo.nickName} / ${vo.hostIp}</c:if>
 						</td>
 						<td>
-							<font color="blue">${vo.readNum}&nbsp;( <font color="navy">${vo.good}</font> )</font>
+							<font color="4em">${vo.readNum}&nbsp;( ${vo.good} )</font>
 						</td>
 					</tr>
 				</c:if>
@@ -104,32 +107,19 @@
 			<!-- 블록페이지 시작 -->
 				<div class="text-center">
 				  <ul class="pagination justify-content-center">
-					  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
-					  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
+					  <c:if test="${pag > 1}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=1&pageSize=${pageSize}">첫페이지</a></li></c:if>
+					  <c:if test="${curBlock > 0}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=${(curBlock-1)*blockSize + 1}&pageSize=${pageSize}">이전블록</a></li></c:if>
 					  <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize) + blockSize}" varStatus="st">
-					    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
-					    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+					    <c:if test="${i <= totPage && i == pag}"><li class="page-item active"><a class="page-link bg-secondary border-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
+					    <c:if test="${i <= totPage && i != pag}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=${i}&pageSize=${pageSize}">${i}</a></li></c:if>
 					  </c:forEach>
-					  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
-					  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardList.bo?pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
+					  <c:if test="${curBlock < lastBlock}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=${(curBlock+1)*blockSize+1}&pageSize=${pageSize}">다음블록</a></li></c:if>
+					  <c:if test="${pag < totPage}"><li class="page-item"><a class="page-link text-secondary" href="${ctp}/BoardSearchList.bo?search=${search}&searchString=${searchString}&pag=${totPage}&pageSize=${pageSize}">마지막페이지</a></li></c:if>
 				  </ul>
 				</div>
 				<!-- 블록페이지 끝 -->
-				<br/>
-				<!-- 검색기 시작 -->
-				<div class="container text-center">
-					<form name="searchForm" method="post" action="BoardSearchList.bo">
-						<b> 검색 </b>
-						<select name="search" id="search">
-							<option value="title">제목</option>
-							<option value="nickName">작성자</option>
-							<option value="content">내용</option>
-						</select>
-						<input type="text" name="searchString" id="searchString" required />
-						<input type="submit" value="검색" class="btn btn-info btn-sm" />
-					</form>
-				</div>				
-				<!-- 검색기 끝 -->
+				<br/><br/>
+				<input type="button" value="돌아가기" onclick="location.href='BoardSearchList.bo';" class="btn btn-warning btn-lg" />
 				
 		</div>
 <p><br/></p>

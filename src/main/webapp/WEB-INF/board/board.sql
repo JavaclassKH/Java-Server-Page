@@ -36,17 +36,73 @@ select *, datediff(wDate, now()) as date_diff from board;
 select idx as nextIdx ,title as nextTitle from board where idx > 5 order by idx limit 1;  -- 다음글
 select idx as NextIdx ,title as behindTitle from board where idx < 5 order by idx desc limit 1;  -- 이전글
 
+-- 관리자는 모든글 보여주고, 일반사용자는 비공개글(openSw='NO')과 신고글(complaint='OK')은 볼수없다. 단, 자신이 작성한 글은 볼수 있다.
+select count(*) as cnt from board;
+select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO';
+select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO';
+select count(*) as cnt from board where mid = 'hkd1234';
+
+select * from board where openSW = 'OK' and complaint = 'NO';
+select * from board where mid = 'hkd1234';
+select * from board where openSW = 'OK' and complaint = 'NO' union select * from board where mid = 'hkd1234';
+select * from board where openSW = 'OK' and complaint = 'NO' union all select * from board where mid = 'hkd1234';
+
+select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO' union select count(*) as cnt from board where mid = 'hkd1234';
+select sum(a.cnt) from (select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO' union select count(*) as cnt from board where mid = 'hkd1234') as a;
+select sum(a.cnt) from (select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO' union select count(*) as cnt from board where mid = ?) as a;
+
+select sum(a.cnt) from (select count(*) as cnt from board where openSW = 'OK' and complaint = 'NO' union select count(*) as cnt from board where mid = 'hkd1234' and (openSW = 'NO' or complaint = 'OK')) as a;
+
+
+select * from board where openSW = 'OK' and complaint = 'NO' union select * from board where mid = 'hkd1234' order by idx desc;
 
 
 
+select *, datediff(wDate, now()) as date_diff, timestampdiff(hour, wDate, now()) as hour_diff from board order by idx desc limit 0,10;
+
+/* 댓글 달기 테이블 */
+create table boardReply (
+idx int not null auto_increment,            /* 댓글 고유번호 */
+boardIdx int not null,                      /* 원본글(부모글)의 고유번호[외래키] */
+mid varchar(20) not null,                   /* 댓글 작성자 아이디 */
+nickName varchar(20) not null,              /* 댓글 작성자 닉네임 */
+wDate datetime default now(),               /* 댓글 올린 날짜와 시간 */          
+hostIp varchar(50) not null,                /* 댓글 작성한 PC의 고유 IP */   
+content text not null,                      /* 댓글 내용 */
+primary key(idx),
+foreign key(boardIdx) references board(idx)
+on update cascade
+on delete restrict 
+);
+
+desc boardReply;
+
+select * from board;
+select * from boardReply;
+select * from member;
+
+insert into boardReply values (default,29,'sona123','유소나',default,'192.168.50.69','첫 댓글 테스트!');
+insert into boardReply values (default,1,'sona123','유소나',default,'192.168.50.64','첫 글에 댓달고 갑니다~');
+insert into boardReply values (default,29,'test2','테스트2',default,'192.168.50.64','첫 댓글 테스트!');
 
 
+select * from board;
+select * from board where mid = 'admin';
+desc board;
 
+create view adminview as select * from board where mid = 'admin';
 
+select * from adminview;
 
+show tables;
+show full tables in javaclass where table_type like 'view';
 
+drop view adminview;
 
+desc board;
+create index nickNameIndex on board(nickName);
 
+show index from board;
 
-
+alter table board drop index nickNameIndex;
 
