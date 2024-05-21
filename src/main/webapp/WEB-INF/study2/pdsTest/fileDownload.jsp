@@ -50,7 +50,6 @@
 	  <c:forEach var="file" items="${files}" varStatus="st">
 	  	<input type="checkbox" name="fileNames" id="fileNames" value="${file}" /> &nbsp;&nbsp;
 	    ${st.count}. <a href="${ctp}/images/pdsTest/${file}" download="${file}">${file}</a>
-	    <input type="button" value="삭제" onclick="fileDelete('${file}')" class="btn btn-danger btn-sm ml-3" />
 	    <br/>
 	    <c:set var="fNameArr" value="${fn:split(file,'.')}"/>
 	    <c:set var="extName" value="${fn:toLowerCase(fNameArr[fn:length(fNameArr)-1])}"/>
@@ -60,8 +59,12 @@
 		    <c:if test="${extName == 'xls' || extName == 'xlsx'}">엑셀파일</c:if>
 	    </font>
 	    <c:if test="${extName == 'jpg' || extName == 'png' || extName == 'gif'}">
-	      <img src="${ctp}/images/pdsTest/${file}" width="150px" class="mt-1" />
+	      <img src="${ctp}/images/pdsTest/${file}" width="161px" class="mt-1" />
 	    </c:if>
+	    <div>
+		    <input type="button" value="삭제" onclick="fileDelete('${file}')" class="btn btn-danger btn-sm mt-2 mr-2" />
+		    <input type="button" value="자바다운로드" onclick="location.href='javaFileDownload.st?file=${file}';" class="btn btn-info btn-sm mt-2" />
+	    </div>
 	    <br/><br/>
 	  </c:forEach>
 	  <hr/>

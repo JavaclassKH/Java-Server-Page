@@ -23,7 +23,7 @@
 	    </c:if>
 	    <c:if test="${level <= 4 && (level > 1 || level == 0)}">
 	      <li class="nav-item">
-	        <a class="nav-link ml-5 mr-2" href="#">자료실</a>
+	        <a class="nav-link ml-5 mr-2" href="PdsList.pds">자료실</a>
 	      </li>        
 	      <li class="nav-item">
 	        <!-- <a class="nav-link ml-2" href="#">Study</a> -->
@@ -103,6 +103,7 @@
 					    <a class="dropdown-item" href="FileUpload3.st">멀티파일업로드3</a>
 					    <a class="dropdown-item" href="FileUpload4.st">멀티파일업로드4</a>
 					    <a class="dropdown-item" href="FileDownload.st">파일다운로드</a>
+					    <a class="dropdown-item" href="FileUpload.st">자바파일업로드(싱글)</a>
 					  </div>
 					</div>
 				</li> 

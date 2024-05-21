@@ -80,8 +80,10 @@
 					<input type="file" name="fName1" id="file1" onchange="imgCheck(this)" class="form-control-file border mb-2 p-2" />
 				</div>
 				<div id="fileBox"></div>
-				<input type="button" value="파일전송" onclick="fCheck()" class="btn btn-success form-control" />
-				<input type="hidden" name="nickName" value="${sNickName}" />
+				<div>
+					<input type="button" value="파일전송" onclick="fCheck()" class="btn btn-success form-control" />
+					<input type="hidden" name="nickName" value="${sNickName}" />
+				</div>
 			</form>
 			<br/><hr/>
 			<br/>

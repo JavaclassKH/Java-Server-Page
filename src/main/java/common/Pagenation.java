@@ -6,12 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import board.BoardDAO;
 import board.BoardVO;
+import pds.PdsDAO;
+import pds.PdsVo;
 
 public class Pagenation {
 
 	public static void pageChange(HttpServletRequest request, int pag, int pageSize, String contentsShow, String section, String part) {
 		BoardDAO boardDao = new BoardDAO();
-//		PdsDAO pdsDao = new PdsDAO(); // pds : Public Domain Software 
+		PdsDAO PdsDao = new PdsDAO(); // pds : Public Domain Software 
+		PdsVo PdsVo = new PdsVo();
+		
 		
 		// part의 값이 넘어올 경우	
 		String search = "" , searchString = ""; 
@@ -33,10 +37,10 @@ public class Pagenation {
 			}
 		}
 		else if(section.equals("pds")) {
-			//totRecCnt = PdsDao.gettotRecCnt(); // 자료실의 전체 레코드수 구하기						
+				totRecCnt = PdsDao.gettotRecCnt(part); // 자료실의 전체 레코드수 구하기						
 		}
 		
-		int totPage = (totRecCnt % pageSize)==0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;
+		int totPage = (totRecCnt % pageSize) == 0 ? (totRecCnt / pageSize) : (totRecCnt / pageSize) + 1;
 		if(pag > totPage) pag = 1;
 		int startIndexNo = (pag - 1) * pageSize;
 		int curScrStartNo = totRecCnt - startIndexNo;
@@ -45,23 +49,29 @@ public class Pagenation {
 		int curBlock = (pag - 1) / blockSize;
 		int lastBlock = (totPage - 1) / blockSize;
 		
-		List<BoardVO> vos = null;
-		/* List<PdsVO> vos = null; */
+			List<BoardVO> boardVos = null;	
+			List<PdsVo> PdsVos = null; 
 		
 		if(section.equals("board")) {
 			if(part == null || part.equals("")) {
-				vos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, "", "");			
+				boardVos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, "", "");			
 			}
 			else {
 				search = part.split("/")[0];
 				searchString = part.split("/")[1];
-				vos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, search, searchString);								
+				boardVos = boardDao.getBoardList(startIndexNo, pageSize, contentsShow, search, searchString);								
 			}
+			request.setAttribute("vos", boardVos);	
 		}
 		else if(section.equals("pds")) {
-			//vos = PdsDao.getBoardList(startIndexNo, pageSize);
+			if(part == null || part.equals("")) {
+				PdsVos = PdsDao.getBoardList(startIndexNo, pageSize, part);	
+			}
+			else {
+				PdsVos = PdsDao.getBoardList(startIndexNo, pageSize, part);				
+			}
+			request.setAttribute("vos", PdsVos);					
 		}
-		request.setAttribute("vos", vos);	
 		
 		request.setAttribute("pag", pag);
 		request.setAttribute("pageSize", pageSize);
@@ -71,8 +81,9 @@ public class Pagenation {
 		request.setAttribute("blockSize", blockSize);
 		request.setAttribute("curBlock", curBlock);
 		request.setAttribute("lastBlock", lastBlock);
+		request.setAttribute("vos", PdsVos);	
 		
-		if(part != null && part.equals("")) {
+		if(part != null && !part.equals("") && section.equals("board")) {
 			String searchTitle = "";
 			if(search.equals("title")) searchTitle = "제목";
 			else if(search.equals("nickName")) searchTitle = "작성자";
@@ -81,7 +92,10 @@ public class Pagenation {
 			request.setAttribute("search", search);
 			request.setAttribute("searchString", searchString);
 			request.setAttribute("searchCount", totRecCnt);			
-	}
+		}
+		else if(section.equals("pds")) {
+			request.setAttribute("part", part);
+		}
 		
 	}	
 	

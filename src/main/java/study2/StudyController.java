@@ -24,6 +24,7 @@ import study2.pdsTest.FileUpload1OkCommand;
 import study2.pdsTest.FileUpload2OkCommand;
 import study2.pdsTest.FileUpload3OkCommand;
 import study2.pdsTest.FileUpload4OkCommand;
+import study2.pdsTest.javaFileDownloadCommand;
 @SuppressWarnings("serial")
 @WebServlet("*.st")
 public class StudyController extends HttpServlet {
@@ -101,6 +102,9 @@ public class StudyController extends HttpServlet {
 		else if(com.equals("uuidForm")) {
 			viewPage += "/uuid/uuidForm.jsp";
 		}
+		else if(com.equals("FileUpload")) {
+			viewPage += "/pdsTest/fileUpload.jsp";
+		}
 		else if(com.equals("FileUpload1")) {
 			viewPage += "/pdsTest/fileUpload1.jsp";
 		}
@@ -133,10 +137,21 @@ public class StudyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
+		else if(com.equals("FileUpload5")) {
+			viewPage += "/pdsTest/fileUpload5.jsp";
+		}
+		else if(com.equals("FileUpload6")) {
+			viewPage += "/pdsTest/fileUpload6.jsp";
+		}
 		else if(com.equals("FileDownload")) {
 			command = new FileDownloadCommand();
 			command.execute(request, response);
 			viewPage += "/pdsTest/fileDownload.jsp";
+		}
+		else if(com.equals("javaFileDownload")) {
+			command = new javaFileDownloadCommand();
+			command.execute(request, response);
+			return;
 		}
 		else if(com.equals("FileDelete")) {
 			command = new FileDeleteCommand();

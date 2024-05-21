@@ -27,6 +27,24 @@
 		    let tel3 = myform.tel3.value.trim();
 		    let tel = tel1 + "-" + tel2 + "-" + tel3;
 		    
+				 // 전송전에 파일에 관련된 사항들을 체크해준다.
+					let fName = document.getElementById("file").value;
+					if(fName.trim() != "") {
+						let ext = fName.substring(fName.lastIndexOf(".")+1).toLowerCase();
+						let maxSize = 1024 * 1024 * 5;
+						let fileSize = document.getElementById("file").files[0].size;
+						
+						if(ext != 'jpg' && ext != 'gif' && ext != 'png') {
+							alert("그림파일만 업로드 가능합니다.");
+							return false;
+						}
+						else if(fileSize > maxSize) {
+							alert("업로드할 파일의 최대용량은 5MByte입니다.");
+							return false;
+						}
+					}
+					else return false;			
+		    
 		    let postcode = myform.postcode.value + " ";   
 		    let roadAddress = myform.roadAddress.value + " ";   
 		    let detailAddress = myform.detailAddress.value + " ";   
@@ -137,7 +155,7 @@
 <jsp:include page="/include/nav.jsp" />
 <p><br/></p>
 <div class="container">
-  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated">
+  <form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" class="was-validated" enctype="multipart/form-data">
     <h2>회 원 가 입</h2>
     <br/>
     <div class="form-group">
@@ -308,7 +326,7 @@
       </div>
     </div>
     <div  class="form-group">
-      회원 사진(파일용량:2MByte이내) :
+      회원 사진(파일용량:2MByte이내) 
       <input type="file" name="fName" id="file" class="form-control-file border"/>
     </div>
     <button type="button" class="btn btn-success mr-3" onclick="fCheck()">회원가입</button> &nbsp;&nbsp;&nbsp;

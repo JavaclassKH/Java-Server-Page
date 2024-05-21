@@ -24,6 +24,8 @@ public class FileUpload4OkCommand implements StudyInterface {
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encording, new DefaultFileRenamePolicy());
 		
 		// 업로드된 파일의 정보를 추출해온다
+		String fNames = multipartRequest.getParameter("fNames");
+		
 		Enumeration fileNames = multipartRequest.getFileNames();
 		String file = "";
 		String oFileName = "";
@@ -37,6 +39,11 @@ public class FileUpload4OkCommand implements StudyInterface {
 		
 		oFileName = oFileName.substring(0,oFileName.lastIndexOf("/"));
 		fsName = fsName.substring(0,fsName.lastIndexOf("/"));
+		
+		System.out.println("원본 파일명 : " + oFileName);
+		System.out.println("저장되는 파일명 : " + fsName);
+		System.out.println("클라이언트에서 업로드 된 파일명 : " + fNames);
+		System.out.println();
 		
 		if(oFileName != null && !oFileName.equals("")) {
 			request.setAttribute("message", "파일 업로드 성공");
