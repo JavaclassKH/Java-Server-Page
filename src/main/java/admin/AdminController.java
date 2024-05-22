@@ -16,6 +16,8 @@ import admin.complain.ComplainCheckCommand;
 import admin.complain.ComplainListCommand;
 import admin.member.MemberLevelChangeCommand;
 import admin.member.MemberListCommand;
+import admin.review.ReviewDeleteCommand;
+import admin.review.ReviewInputOkCommand;
 @SuppressWarnings("serial")
 @WebServlet("*.ad")
 public class AdminController extends HttpServlet {
@@ -35,6 +37,16 @@ public class AdminController extends HttpServlet {
 		// 컨트롤러 작업지시
 		if(com.equals("/BoardComplainInput")) {
 			command = new BoardComplainInputCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/ReviewInputOk")) {
+			command = new ReviewInputOkCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/ReviewDelete")) {
+			command = new ReviewDeleteCommand();
 			command.execute(request, response);
 			return;
 		}
@@ -84,6 +96,7 @@ public class AdminController extends HttpServlet {
 			command.execute(request, response);
 			return;
 		}
+
 
 
 

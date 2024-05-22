@@ -15,7 +15,7 @@
     
     function fCheck() {
     	let fName1 = document.getElementById("fName").value;
-    	let maxSize = 1024 * 1024 * 30;	
+    	let maxSize = 1024 * 1024 * 30;	// 기본 단위 : Byte,   1024 * 1024 * 30 = 30MByte 허용
     	let title = $("#title").val();
     	
     	if(fName1.trim() == "") {
@@ -42,45 +42,45 @@
 	    	    }
     			}
     		}
-    	}	
+    	}
     		  		
-	    if(fileSize > maxSize) {
-	   		alert("업로e드 가능한 파일의 최대용량은 30MB입니다");
-	   	}
-    	
+    	if(fileSize > maxSize) {
+    		alert("업로드할 파일의 최대용량은 30MB입니다.");
+    		return false;
+    	}
     	else {
     		myform.fSize.value = fileSize;
-    		myform.submit(); 
+    		myform.submit();
     	}
     }
 		
-	// 파일박스 추가 (동적폼)
-	function fileBoxAppend() {
-		cnt++;
-		let fileBox = '';
-		fileBox += '<div id="fileBox'+cnt+'">';
-		fileBox += '<input type="file" name="fName'+cnt+'" id="file'+cnt+'" class="form-control file border mb-2" style="float:left; width:85%;" />';
-		fileBox += '<input type="button" value="삭제" onclick="deleteBox('+cnt+')" class="btn btn-danger mb-2 ml-2" style="width:10%;" />';
-		fileBox += '</div>';
-		$("#fileBox").append(fileBox); 
-	}
+		// 파일박스 추가 (동적폼)
+		function fileBoxAppend() {
+			cnt++;
+			let fileBox = '';
+			fileBox += '<div id="fileBox'+cnt+'">';
+			fileBox += '<input type="file" name="fName'+cnt+'" id="file'+cnt+'" class="form-control file border mb-2" style="float:left; width:85%;" />';
+			fileBox += '<input type="button" value="삭제" onclick="deleteBox('+cnt+')" class="btn btn-danger mb-2 ml-2" style="width:10%;" />';
+			fileBox += '</div>';
+			$("#fileBox").append(fileBox); 
+		}
 	
-	// 파일박스 삭제
-	function deleteBox(cnt) {
-		$("#fileBox"+cnt).remove();
-		cnt--;
-	}
-	
-	// 공개 선택시 비밀번호입력창 숨기기
-	function pwdCheckClose() {
-		$("#pwdDemo").hide();
-		$("#pwd").var("");
-	}
-	
-	// 비공개 선택시 비밀번호입력창 보이기
-	function pwdCheckOpen() {
-		$("#pwdDemo").show();
-	}
+		// 파일박스 삭제
+		function deleteBox(cnt) {
+			$("#fileBox"+cnt).remove();
+			cnt--;
+		}
+		
+		// 공개 선택시 비밀번호입력창 숨기기
+		function pwdCheckClose() {
+			$("#pwdDemo").hide();
+			$("#pwd").var("");
+		}
+		
+		// 비공개 선택시 비밀번호입력창 보이기
+		function pwdCheckOpen() {
+			$("#pwdDemo").show();
+		}
 	
 </script>
 <body>
@@ -89,8 +89,7 @@
 <p><br/></p>
 	<div class="container">
 		<h1 class="text-center mb-5">자 료 업 로 드 페 이 지</h1>
-		<form name="myform" method="post" action="PdsInputOk.pds" enctype="multipart/form-data">
-			<h2 class="text-center">자 료 올 리 기</h2>
+		<form name="myform" method="post" action="PdsInputOk.pds" class="was-validated" enctype="multipart/form-data">
 			<br/>
 			<div>
 				<input type="button" value="파박추가" onclick="fileBoxAppend()" class="btn btn-info mb-2" />					
@@ -116,8 +115,8 @@
 				</select>
 			</div>
 			<div class="mb-2">
-				공개여부
-				공개&nbsp;&nbsp; <input type="radio" name="openSw" onclick="pwdCheckClose()" value="공개" class="mr-3" checked />
+				공개여부&nbsp;&nbsp;&nbsp;
+				공개&nbsp;&nbsp; <input type="radio" name="openSw" onclick="pwdCheckClose()" value="공개" class="mr-2" checked />
 				비공개&nbsp;&nbsp; <input type="radio" name="openSw" onclick="pwdCheckOpen()" value="비공개" />
 				<div id="pwdDemo" style="display:none; width:200px" class="mt-2">
 					다운로드 전용 비밀번호
@@ -133,7 +132,7 @@
 			<input type="hidden" name="hostIp" value="${pageContext.request.remoteAddr}" />
 			<input type="hidden" name="mid" value="${sMid}" />
 			<input type="hidden" name="nickName" value="${sNickName}" />
-			<input type="hidden" name="fSize" value="" />
+			<input type="hidden" name="fSize" />
 		</form>
 	</div>
 <p><br/></p>

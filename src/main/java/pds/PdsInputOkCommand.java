@@ -2,6 +2,7 @@ package pds;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -50,14 +51,16 @@ public class PdsInputOkCommand implements PdsInterface {
 		
 		// 비밀번호 암호화(SHA-256)
 		SecurityUtil security = new SecurityUtil();
+//		String saltKey = UUID.randomUUID().toString().substring(0,8);
+//		pwd = saltKey + security.encryptSHA256(saltKey + pwd);
 		pwd = security.encryptSHA256(pwd);
 		
 		// 가공처리된 모든 자료들을 VO에 담아서 DB에 저장한다
-		PdsVo vo = new PdsVo();
+		PdsVO vo = new PdsVO();
 		vo.setMid(mid);
 		vo.setNickName(nickName);
 		vo.setfName(oFileName);
-		vo.setFsName(fSName);
+		vo.setfSName(fSName);
 		vo.setfSize(fSize);
 		vo.setTitle(title);
 		vo.setPart(part);
@@ -66,10 +69,8 @@ public class PdsInputOkCommand implements PdsInterface {
 		vo.setHostIp(hostIp);
 		vo.setContent(content);
 		
-		
 		PdsDAO dao = new PdsDAO();
 		int res = dao.setPdsInputOk(vo);
-		
 		
 		if(res != 0) {
 			request.setAttribute("message", "자료 업로드 완료");

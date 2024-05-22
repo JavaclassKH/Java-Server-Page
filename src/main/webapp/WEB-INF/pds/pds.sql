@@ -16,3 +16,17 @@ content text,                                  /* 업로드 파일의 상세 설
 primary key(idx),
 foreign key(mid) references member(mid)
 );
+
+-- 리뷰 테이블
+create table review (
+idx int not null auto_increment,         /* 리뷰 고유번호 */
+part varchar(20) not null,               /* 리뷰 분류(게시판:board, 자료실: pds .....) */
+partIdx int not null,                    /* 해당 분류의 고유번호 */
+mid varchar(30) not null,                /* 리뷰 작성자의 아이디 */
+nickName varchar(30) not null,           /* 리뷰 작성자의 닉네임 */
+star int not null default 0,             /* 리뷰 점수(별점) */
+content text,                            /* 리뷰 내용 */
+rDate datetime default now(),            /* 리뷰등록일자 */
+primary key(idx),
+foreign key(mid) references member(mid)
+);

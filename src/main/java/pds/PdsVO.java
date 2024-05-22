@@ -1,12 +1,12 @@
 package pds;
 
-public class PdsVo {
+public class PdsVO {
 
 	private int idx; 
 	private String mid; 
 	private String nickName; 
 	private String fName; 
-	private String fsName; 
+	private String fSName; 
 	private int fSize; 
 	private String title; 
 	private String part; 
@@ -16,6 +16,9 @@ public class PdsVo {
 	private String pwd; 
 	private String hostIp; 
 	private String content;
+	
+	private int date_diff;
+	private int hour_diff;
 	
 	
 	public int getIdx() {
@@ -42,11 +45,11 @@ public class PdsVo {
 	public void setfName(String fName) {
 		this.fName = fName;
 	}
-	public String getFsName() {
-		return fsName;
+	public String getfSName() {
+		return fSName;
 	}
-	public void setFsName(String fsName) {
-		this.fsName = fsName;
+	public void setfSName(String fSName) {
+		this.fSName = fSName;
 	}
 	public int getfSize() {
 		return fSize;
@@ -102,16 +105,30 @@ public class PdsVo {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	public int getDate_diff() {
+		return date_diff;
+	}
+	public void setDate_diff(int date_diff) {
+		this.date_diff = date_diff;
+	}
+	public int getHour_diff() {
+		return hour_diff;
+	}
+	public void setHour_diff(int hour_diff) {
+		this.hour_diff = hour_diff;
+	}
 	
 	@Override
 	public String toString() {
-		return "PdsVo [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fsName=" + fsName
+		return "PdsVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSName=" + fSName
 				+ ", fSize=" + fSize + ", title=" + title + ", part=" + part + ", fDate=" + fDate + ", downNum=" + downNum
-				+ ", openSw=" + openSw + ", pwd=" + pwd + ", hostIp=" + hostIp + ", content=" + content + "]";
-	} 
+				+ ", openSw=" + openSw + ", pwd=" + pwd + ", hostIp=" + hostIp + ", content=" + content + ", date_diff="
+				+ date_diff + ", hour_diff=" + hour_diff + "]";
+	}
 	
 	
+
 	
+
 	
 }

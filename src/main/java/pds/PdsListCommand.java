@@ -17,7 +17,7 @@ public class PdsListCommand implements PdsInterface {
 		int pageSize = request.getParameter("pageSize") == null ? 5 : Integer.parseInt(request.getParameter("pageSize"));
 		String part = request.getParameter("part") == null ? "전체" : request.getParameter("part");
 		
-		ArrayList<PdsVo> vos = new ArrayList<PdsVo>();
+		ArrayList<PdsVO> vos = new ArrayList<PdsVO>();
 		PdsDAO dao = new PdsDAO();
 		
 		Pagenation.pageChange(request, pag, pageSize, "", "pds", part);

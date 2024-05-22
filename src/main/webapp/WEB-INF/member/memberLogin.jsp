@@ -16,8 +16,8 @@
 <div class="container">
   <form name="myform" method="post" action="${ctp}/MemberLoginOk.mem">
     <table class="table table-bordered border-radius text-center">
-      <tr>
-        <td colspan="2"><font size="5">로 그 인</font></td>
+      <tr class="table table-warning">
+        <td colspan="2"><font size="10em"><b>로&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 그&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 인</b></font></td>
       </tr>
       <tr>
         <th>아이디</th>

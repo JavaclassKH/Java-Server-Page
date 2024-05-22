@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.GetConn;
-import member.MemberVO;
 
 public class PdsDAO {
 	private Connection conn = GetConn.getConn();
@@ -57,60 +56,15 @@ public class PdsDAO {
 			
 			totRecCnt = rs.getInt("cnt");
 		} catch (SQLException e) {
-			System.out.println("SQL오류(전체자료 건수 구하기-자료실[PdsDAO,58]) : " + e.getMessage());
+			System.out.println("SQL오류(전체자료 건수 구하기-자료실[PdsDAO]) : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
 		return totRecCnt;
 	}
 
-	// 자료실의 모든 내용 가져오기
-	public List<PdsVo> getBoardList(int startIndexNo, int pageSize, String part) {
-		System.out.println("자료리스트 정상실행");
-		List<PdsVo> vos = new ArrayList<PdsVo>();
-		 try {
-			 if(part.equals("전체")) {
-				 sql = "select * from pds order by idx desc limit ?,?";				
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setInt(1, startIndexNo);
-				 pstmt.setInt(2, pageSize);
-			 }
-			 else {
-				 sql = "select * from pds where part = ? order by idx desc limit ?,?";			
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setString(1, part);				
-				 pstmt.setInt(2, startIndexNo);
-				 pstmt.setInt(3, pageSize);
-			 }
-			 rs = pstmt.executeQuery();
-			 
-			while (rs.next()) {
-				PdsVo vo = new PdsVo();
-				vo.setIdx(rs.getInt("idx"));
-				vo.setMid(rs.getString("mid"));
-				vo.setNickName(rs.getString("nickName"));
-				vo.setfName(rs.getString("fName"));
-				vo.setFsName(rs.getString("fsName"));
-				vo.setfSize(rs.getInt("fSize"));
-				vo.setTitle(rs.getString("title"));
-				vo.setPart(rs.getString("part"));
-				vo.setfDate(rs.getString("fDate"));
-				vo.setDownNum(rs.getInt("downNum"));
-				vo.setOpenSw(rs.getString("openSw"));
-				vo.setPwd(rs.getString("pwd"));
-				vo.setHostIp(rs.getString("hostIp"));
-				vo.setContent(rs.getString("content"));
-				
-				vos.add(vo);
-			}
-			} catch (SQLException e) { 
-				System.out.println("SQL오류(전체자료 내용 가져오기-자료실[PdsDAO,107]) : " + e.getMessage());
-			} finally { rsClose(); }
-		return vos;
-	}
-
 	// 자료실 입력 자료 DB에 저장하기
-	public int setPdsInputOk(PdsVo vo) {
+	public int setPdsInputOk(PdsVO vo) {
 		int res = 0;
 
 		try {
@@ -119,7 +73,7 @@ public class PdsDAO {
 			pstmt.setString(1, vo.getMid());
 			pstmt.setString(2, vo.getNickName());
 			pstmt.setString(3, vo.getfName());
-			pstmt.setString(4, vo.getFsName());
+			pstmt.setString(4, vo.getfSName());
 			pstmt.setInt(5, vo.getfSize());
 			pstmt.setString(6, vo.getTitle());
 			pstmt.setString(7, vo.getPart());
@@ -130,10 +84,128 @@ public class PdsDAO {
 			
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("SQL오류(자료실 입력자료 DB에 저장하기[PdsDAO,131]) : " + e.getMessage());
+			System.out.println("SQL오류(자료실 입력자료 DB에 저장하기[PdsDAO]) : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}
 		return res;
 	}
+
+	public List<PdsVO> getPdsList(int startIndexNo, int pageSize, String part) {
+		List<PdsVO> vos = new ArrayList<PdsVO>();
+		 try {
+			 if(part.equals("전체")) {
+				 sql = "select *, datediff(fDate, now()) as date_diff,"
+				 		+ "timestampdiff(hour, fDate, now()) as hour_diff from pds order by idx desc limit ?,?";				
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setInt(1, startIndexNo);
+				 pstmt.setInt(2, pageSize);
+			 }
+			 else {
+				 sql = "select *, datediff(fDate, now()) as date_diff,"
+				 		+ "timestampdiff(hour, fDate, now()) as hour_diff from pds where part = ? order by idx desc limit ?,?";			
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setString(1, part);				
+				 pstmt.setInt(2, startIndexNo);
+				 pstmt.setInt(3, pageSize);
+			 }
+			 rs = pstmt.executeQuery();
+			 
+			while (rs.next()) {
+				PdsVO vo = new PdsVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setfName(rs.getString("fName"));
+				vo.setfSName(rs.getString("fSName"));
+				vo.setfSize(rs.getInt("fSize"));
+				vo.setTitle(rs.getString("title"));
+				vo.setPart(rs.getString("part"));
+				vo.setfDate(rs.getString("fDate"));
+				vo.setDownNum(rs.getInt("downNum"));
+				vo.setOpenSw(rs.getString("openSw"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setHostIp(rs.getString("hostIp"));
+				vo.setContent(rs.getString("content"));
+				
+				vo.setHour_diff(rs.getInt("hour_diff"));
+				vo.setDate_diff(rs.getInt("date_diff"));
+				
+				vos.add(vo);
+			}
+			} catch (SQLException e) { 
+				System.out.println("SQL오류(전체자료 내용 가져오기-자료실[PdsDAO]) : " + e.getMessage());
+			} finally { rsClose(); }
+		return vos;
+	}
+
+	// 파일 다운로드시 다운로드 수 증가
+	public void setDownNumCheck(int idx) {
+		try {
+			sql = "update pds set downNum = downNum + 1 where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(다운로드 수 증가-자료실[PdsDAO]) : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+	}
+
+	// 자료실 글 개별보기
+	public PdsVO getPdsIdxSearch(int idx) {
+		PdsVO vo = new PdsVO();
+		
+		try {
+			sql = "select * from pds where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setfName(rs.getString("fName"));
+				vo.setfSName(rs.getString("fSName"));
+				vo.setfSize(rs.getInt("fSize"));
+				vo.setTitle(rs.getString("title"));
+				vo.setPart(rs.getString("part"));
+				vo.setfDate(rs.getString("fDate"));
+				vo.setDownNum(rs.getInt("downNum"));
+				vo.setOpenSw(rs.getString("openSw"));
+				vo.setPwd(rs.getString("pwd"));
+				vo.setHostIp(rs.getString("hostIp"));
+				vo.setContent(rs.getString("content"));
+				
+			}			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(자료실 글 개별보기[PdsDAO]) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}		
+		return vo;
+	}
+
+	// 자료실 파일삭제하기
+	public int setPdsDeleteCheckCommand(int idx) {
+		int res = 0;
+		 
+		try {
+			sql = "delete from pds where idx = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(자료실 파일삭제하기[PdsDAO]) : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}			
+		return res;
+	}
+	
+	
 }
