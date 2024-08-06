@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import study2.Calendar.Calendar1Command;
+import study2.Calendar.Calendar2Command;
+import study2.ScrollPage.ScrollPageCommand;
 import study2.ajax.AjaxIdCheck0Command;
 import study2.ajax.AjaxIdCheck1Command;
 import study2.hoewon.HoewonDeleteCommand;
@@ -25,6 +28,9 @@ import study2.pdsTest.FileUpload2OkCommand;
 import study2.pdsTest.FileUpload3OkCommand;
 import study2.pdsTest.FileUpload4OkCommand;
 import study2.pdsTest.javaFileDownloadCommand;
+import study2.transaction.TransactionBankBookCommand;
+import study2.transaction.TransactionTest1Command;
+import study2.transaction.TransactionTest2Command;
 @SuppressWarnings("serial")
 @WebServlet("*.st")
 public class StudyController extends HttpServlet {
@@ -157,6 +163,66 @@ public class StudyController extends HttpServlet {
 			command = new FileDeleteCommand();
 			command.execute(request, response);
 			return;
+		}
+		else if(com.equals("Calendar1")) {
+			command = new Calendar1Command();
+			command.execute(request, response);
+			viewPage += "/calendar/calendar1.jsp";
+		}
+		else if(com.equals("Calendar2")) {
+			command = new Calendar2Command();
+			command.execute(request, response);
+			viewPage += "/calendar/calendar2.jsp";
+		}
+		else if(com.equals("ScrollStudy")) {
+			viewPage += "/scrollPage/scrollStudy.jsp";
+		}
+		else if(com.equals("ScrollBasic")) {
+			command = new ScrollPageCommand();
+			command.execute(request, response);
+			viewPage += "/scrollPage/scrollBasic.jsp";
+		}
+		else if(com.equals("ScrollPage")) {
+			command = new ScrollPageCommand();
+			command.execute(request, response);
+			viewPage += "/scrollPage/scrollPage.jsp";
+		}
+		else if(com.equals("Transaction")) {
+			viewPage += "/transaction/transaction.jsp";
+		}
+		else if(com.equals("TransactionBankBook")) {
+			command = new TransactionBankBookCommand();
+			command.execute(request, response);
+			viewPage += "/transaction/transactionBankBook.jsp";
+		//	viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("TransactionTest1")) {
+			command = new TransactionTest1Command();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("TransactionTest2")) {
+			command = new TransactionTest2Command();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("InputTest")) {
+			viewPage += "/inputTest/test1.jsp";
+		}	
+		else if(com.equals("Error")) {
+			viewPage += "/error/error.jsp";
+		}
+		else if(com.equals("ErrorJSP")) {
+			viewPage += "/error/errorJSP.jsp";
+		}
+		else if(com.equals("Error400")) {
+			String vo = request.getParameter("vo");
+			System.out.println("vo => " + vo);
+			viewPage += "/error/errorJSP.jsp";
+		}
+		else if(com.equals("Error500")) {
+			System.out.println("5/0 : " + 5 / 0);
+			viewPage += "/error/errorJSP.jsp";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

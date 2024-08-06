@@ -282,4 +282,45 @@ public class MemberDAO {
 		return vos;
 	}
 
+	// 채팅내용 DB에 저장하기
+	public void setMemberChatInputOk(String nickName, String chat) {
+		try {
+			sql = "insert into memberChat values (default,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, nickName);
+			pstmt.setString(2, chat);
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			System.out.println("SQL오류(채팅내용DB저장[MemberDAO]) : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}		
+	}
+	
+	// 채팅내용 DB에서 읽어오기
+	public ArrayList<MemberChatVO> getMemberMessage() {
+		ArrayList<MemberChatVO> vos = new ArrayList<MemberChatVO>();
+		try {
+			sql = "select m.* from (select * from memberChat order by idx desc limit 50) m order by idx";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()){
+				MemberChatVO vo = new MemberChatVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setNickName(rs.getString("nickName"));
+				vo.setChat(rs.getString("chat"));
+				
+				vos.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL오류(채팅내용읽어오기[MemberDAO]) : " + e.getMessage());
+		} finally {
+			rsClose();
+		}		
+		return vos;
+	}
+
+	
 }

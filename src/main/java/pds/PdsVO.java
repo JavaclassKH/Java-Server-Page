@@ -19,6 +19,7 @@ public class PdsVO {
 	
 	private int date_diff;
 	private int hour_diff;
+
 	
 	
 	public int getIdx() {

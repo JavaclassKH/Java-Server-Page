@@ -1,6 +1,7 @@
 package member;
 
 import java.io.IOException;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ public class MemberIdCheckCommand implements MemberInterface {
 		if(vo.getMid() != null) res = "1";
 
 		response.getWriter().write(res);
+		
 	}
 
 }

@@ -113,7 +113,7 @@ public class BoardDAO {
 				vo.setHour_diff(rs.getInt("hour_diff"));
 				vo.setDate_diff(rs.getInt("date_diff"));
 				
-				vo.setReplyCount(rs.getInt("replyCount"));
+				/* vo.setReplyCount(rs.getInt("replyCount")); */
 				
 				vos.add(vo);
 			}

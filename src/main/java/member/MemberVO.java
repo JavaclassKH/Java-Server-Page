@@ -32,6 +32,8 @@ public class MemberVO {
 	
 	
 	
+	
+	
 	public int getIdx() {
 		return idx;
 	}

@@ -29,6 +29,7 @@ public class MemberMainCommand implements MemberInterface {
 		request.setAttribute("guestCnt", gVos.size());
 		
 		
+		
 	}
 
 }

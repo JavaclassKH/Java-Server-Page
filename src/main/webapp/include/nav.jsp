@@ -106,19 +106,36 @@
 					    <a class="dropdown-item" href="FileUpload.st">자바파일업로드(싱글)</a>
 					  </div>
 					</div>
-				</li> 
+				</li>
+				<li class="nav-item">
+					<!-- <a class="nav-link ml-2" href="#">Study</a> -->
+					<div class="dropdown dropright">
+						<button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split ml-1 mr-2" data-toggle="dropdown">
+						Study4
+						</button>
+						<div class="dropdown-menu">
+							<a class="dropdown-item" href="InputTest.st">input태그 테스트</a>
+							<a class="dropdown-item" href="Calendar1.st">달력연습1</a>
+							<a class="dropdown-item" href="Calendar2.st">달력연습2</a>
+							<a class="dropdown-item" href="ScrollStudy.st">스크롤연습</a>
+							<a class="dropdown-item" href="ScrollBasic.st">무한스크롤연습</a>
+							<a class="dropdown-item" href="Transaction.st">트랜잭션연습</a>
+							<a class="dropdown-item" href="Error.st">에러페이지 연습</a>
+						</div>
+					</div>
+				</li>
 			</c:if>  	
 			<c:if test="${level <= 4}">
 	      <li class="nav-item">
 	        <div class="dropdown dropright">
-					  <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split ml-2 mr-2" data-toggle="dropdown">
+					  <button type="button" class="btn btn-outline-success dropdown-toggle dropdown-toggle-split ml-2 mr-3" data-toggle="dropdown">
 					    <font color="black"><b>마이페이지</b></font>
 					  </button>
  					  <div class="dropdown-menu">
 					    <a class="dropdown-item" href="MemberMain.mem">로비</a>
 					    <c:if test="${level <= 4 && (level > 1 || level == 0)}">
-					    	<a class="dropdown-item" href="#">일정관리</a>
-					    	<a class="dropdown-item" href="#">메세지관리</a>
+					    	<a class="dropdown-item" href="Schedule.sc">일정관리</a>
+					    	<a class="dropdown-item" href="WebMessage.wm">메세지관리</a>
 					    	<a class="dropdown-item" href="MemberList.mem">회원리스트</a>
 					    </c:if>
 					    <a class="dropdown-item" href="MemberPwdCheck.mem">회원정보수정</a>

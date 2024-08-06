@@ -312,6 +312,26 @@ public class AdminDAO {
 		}
 		return res;
 	}
+
+	// 리뷰 답글 저장하기
+	public int setReviewReplyInputOk(ReviewVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into reviewReply values (default,?,?,?,default,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, vo.getIdx());
+			pstmt.setString(2, vo.getReplyMid());
+			pstmt.setString(3, vo.getReplyNickName());
+			pstmt.setString(4, vo.getReplyContent());
+			res = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			System.out.println("SQL오류(리뷰답글저장[adminDAO]) : " + e.getMessage());
+		} finally {
+			pstmtClose();			
+		}
+		return res;
+	}
 	
 
 	

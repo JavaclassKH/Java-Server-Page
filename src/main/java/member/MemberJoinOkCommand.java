@@ -28,23 +28,9 @@ public class MemberJoinOkCommand implements MemberInterface {
 		String name = multipartRequest.getParameter("name") == null ? "" : multipartRequest.getParameter("name"); 
 		String gender = multipartRequest.getParameter("gender") == null ? "" : multipartRequest.getParameter("gender"); 
 		String birthday = multipartRequest.getParameter("birthday") == null ? "" : multipartRequest.getParameter("birthday"); 
-		String tel = multipartRequest.getParameter("tel") == null ? "" : multipartRequest.getParameter("tel"); 
-		String address = multipartRequest.getParameter("address") == null ? "" : multipartRequest.getParameter("address"); 
+		String contact = multipartRequest.getParameter("contact") == null ? "" : multipartRequest.getParameter("contact"); 
 		String email = multipartRequest.getParameter("email") == null ? "" : multipartRequest.getParameter("email"); 
-		String homePage = multipartRequest.getParameter("homePage") == null ? "" : multipartRequest.getParameter("homePage"); 
-		String job = multipartRequest.getParameter("job") == null ? "" : multipartRequest.getParameter("job"); 
-		String photo = multipartRequest.getFilesystemName("fName") == null ? "noimage.jpg" : multipartRequest.getFilesystemName("fName");
-		String content = multipartRequest.getParameter("content") == null ? "" : multipartRequest.getParameter("content"); 
-		String userInfor = multipartRequest.getParameter("userInfor") == null ? "" : multipartRequest.getParameter("userInfor");
-		
-		String[] hobbys = multipartRequest.getParameterValues("hobby");
-		String hobby = "";
-		
-		if(hobbys.length != 0) {
-			for(String h : hobbys)
-			hobby += h + " / ";
-		}
-		hobby = hobby.substring(0, hobby.length() - 2);
+
 		
 		MemberDAO dao = new MemberDAO();
 		MemberVO vo = null;
@@ -77,15 +63,7 @@ public class MemberJoinOkCommand implements MemberInterface {
 		vo.setName(name);
 		vo.setGender(gender);
 		vo.setBirthday(birthday);
-		vo.setTel(tel);
-		vo.setAddress(address);
 		vo.setEmail(email);
-		vo.setHomePage(homePage);
-		vo.setJob(job);
-		vo.setHobby(hobby);
-		vo.setPhoto(photo);
-		vo.setContent(content);
-		vo.setUserInfor(userInfor);		
 		
 		int res = dao.setMemberJoinOk(vo);
 		

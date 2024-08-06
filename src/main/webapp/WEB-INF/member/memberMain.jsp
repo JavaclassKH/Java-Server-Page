@@ -8,6 +8,32 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>memberMain.jsp</title>
 	<jsp:include page="/include/bs4.jsp" />
+	<script>
+		'use strict';
+		
+		// 채팅내용을 DB에 저장
+		function chatInput() {
+			let chat = document.getElementById("chat").value;
+			if(chat.trim() != "") {
+				$.ajax({
+					url : "MemberChatInput.mem",
+					type : "post",
+					data : {chat : chat},
+					error : function() {
+						alert("채팅 전송 오류");
+					}
+				});
+			}
+		}
+		
+		// 채팅대화 입력 후 엔터키를 눌렀을때 자동으로 메시지 DB에 저장! chatInput() 함수 호출!
+		$(function() {
+			$("#chat").on("keydown",function(e){
+				if(e.keyCode == 13) chatInput();
+			});
+		});		
+	
+	</script>
 </head>
 <body>
 <%@ include file = "/include/header.jsp" %>
@@ -15,7 +41,20 @@
 <p><br/></p>
 	<div class="container">
 		<h1><b>인증회원 전용 메인 로비, 환영합니다!</b></h1>
-		<br/><hr/><br/>
+		<br/><hr/><br/><br/>
+		<h2> &gt;&gt; <b>&nbsp;&nbsp;&nbsp;&nbsp; 실시간 채팅 &nbsp;&nbsp;&nbsp;&nbsp;</b> &lt;&lt; </h2>
+		<div style="width:200px">
+			<form name="chatForm">
+				<label for="chat"><b>	실&nbsp;&nbsp; 시&nbsp;&nbsp; 간&nbsp;&nbsp; 대&nbsp;&nbsp; 화 </b></label>
+				<iframe src="${ctp}/include/memberMessage.jsp" name="chatFrame" height="220px" class="border"></iframe>
+				<div class="input-group mt-2">
+					<input type="text" name="chat" id="chat" class="form-control" placeholder="대화내용을 입력하세요." autofocus />
+					<div class="input-group-append">
+						<input type="button" value="엔터" onclick="chatInput()" class="btn btn-outline-primary" />
+					</div>
+				</div>
+			</form>
+		</div>
 		<!-- 실시간 비밀채팅 만들기 -->
 		<div class="row">
 			<div class="col">

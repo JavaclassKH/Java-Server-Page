@@ -30,3 +30,34 @@ rDate datetime default now(),            /* 리뷰등록일자 */
 primary key(idx),
 foreign key(mid) references member(mid)
 );
+
+
+-- 리뷰 답글 테이블
+create table reviewReply (
+replyIdx int not null auto_increment,                    /* 원본 글(리뷰)의 고유번호 */
+reviewIdx int not null,
+replyMid varchar(30) not null,             /* 답글 작성자의 아이디 */
+replyNickName varchar(30) not null,        /* 답글 작성자의 닉네임 */
+replyRDate datetime default now(),         /* 답글 올린 날짜 */ 
+replyContent text not null,                /* 답글 내용 */
+primary key(replyIdx),
+foreign key(replyMid) references member(mid),
+foreign key(reviewIdx) references review(idx)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

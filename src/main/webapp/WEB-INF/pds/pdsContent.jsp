@@ -14,6 +14,71 @@
 	<script>
 		'use strict';
 		
+ 		// 리뷰 보이기,감추기 처리 - 처음 접속시엔 리뷰 보이기 버튼을 감춤
+ 		$(function(){
+			$("#reviewShowBtn").hide();
+			$("#reviewHideBtn").show();
+			$("#reviewBox").show();
+		});
+ 		
+ 		// 리뷰 보이기, 리뷰 가리기 
+ 		function reviewShow() {
+			$("#reviewShowBtn").hide();
+			$("#reviewHideBtn").show();
+			$("#reviewBox").show();
+		}
+ 		
+ 		function reviewHide() {
+			$("#reviewShowBtn").show();
+			$("#reviewHideBtn").hide();
+			$("#reviewBox").hide();
+		}
+ 		
+ 		// 리뷰에 답글달기 폼 열기
+ 		function reviewReply(idx, nickName, content) { 			
+			$("#reviewModal #reviewIdx").val(idx);
+			$("#reviewModal #reviewReplyNickName").text(nickName);
+			$("#reviewModal #reviewReplyContent").html(content);
+		}
+
+ 		
+ 		// 리뷰에 답글달기
+ 		function reviewReplyCheck() {
+	 		let replyContent = reviewReplyForm.replyContent.value;
+	 		console.log("리뷰답글" + replyContent);
+	 		let replyIdx = reviewReplyForm.replyIdx.value;
+	 		
+	 		if(replyContent.trim() == "") {
+	 			alert("리뷰 답글을 입력하세요");
+	 			return;
+	 		}
+	 		
+	 		let query = {
+	 			reviewIdx : replyIdx,
+	 			replyMid : '${sMid}',
+	 			replyNickName : '${sNickName}',
+	 			replyContent : replyContent
+	 		}
+	 		
+	 		$.ajax({
+	 			url : "ReviewReplyInputOk.ad",
+	 			type : "post",
+	 			data : query,
+	 			success : function(res) {
+					if(res != "0")  {
+						alert("답글 등록이 완료되었습니다");
+						location.reload();
+					}
+					else alert("답글 등록에 실패하였습니다");
+				},
+				error : function() {
+					alert("답글등록 전송오류");
+				} 
+	 		});
+			
+		}
+		
+ 		
  		// 다운로드 수 증가
  		function downNumCheck(idx) {
 			$.ajax({
@@ -102,6 +167,7 @@
 				}			
 			});
 		}
+ 		
  			
  		
 	</script>
@@ -138,6 +204,9 @@
 		text-shadow: 0 0 0 rgba(247, 202, 1, 95);
 	}
 	
+	textarea {
+		resize:none;
+	}
 	
 	
 	</style>
@@ -182,7 +251,7 @@
 			<tr>
 				<th>상세내용</th>
 				<td colspan="3" class="text-left" style="height:180px">
-				${fn:replace(vo.content, newLine, '<br/>')}
+				${fn:replace(vo.content, newLine, '<br>')}
 				</td>
 			</tr>
 			<tr>
@@ -217,25 +286,27 @@
 		<br/>
 		<div id="score" class="row">
 			<div class="col">
-				<input type="button" value="보이기" id="reviewShowBtn" onclick="reviewShow()" class="badge badge-pill badge-primary" />
-				<input type="button" value="감추기" id="reviewHideBtn" onclick="reviewHide()" class="badge badge-pill badge-danger" />
+				<h4><input type="button" value="보이기" id="reviewShowBtn" onclick="reviewShow()" class="badge badge-pill badge-primary" /></h4>
+				<h4><input type="button" value="감추기" id="reviewHideBtn" onclick="reviewHide()" class="badge badge-pill badge-warning" /></h4>
 			</div>
-			<div class="col text right">
-				<b>리뷰평점 : <fmt:formatNumber value="${reviewAvg}" pattern="#,##0.0" /></b>
+			<div class="col text-right">
+				<b>리뷰평점 : <font size="5em"><fmt:formatNumber value="${reviewAvg}" pattern="#,##0.0" /></font></b>
 			</div>
 		</div>
 		<br/>
 		<div id="reviewBox">
 			<c:forEach var="vo" items="${rVos}" varStatus="st">
 				<div class="row">
-					<div class="col ml-2">
+					<div class="col ml-3">
 						<b>${vo.nickName}</b>
 						<span style="font-size:9px">${fn:substring(vo.rDate,0,10)}</span>
 						<c:if test="${vo.mid == sMid || sLevel == 0}">
 							<a href="javascript:reviewDelete(${vo.idx})" title="삭제" class="badge badge-pill badge-danger">X</a>
 						</c:if>
+							<a href="#" onclick="reviewReply('${vo.idx}','${vo.nickName}','${vo.content}')"  title="답글달기" class="badge badge-pill badge-success" data-toggle="modal" data-target="#replyModal">RE</a>
+							<%-- <p>${vo.idx} / ${vo.nickName} / ${vo.content}</p> --%>
 					<div class="row borderless m-1 p-1">
-						${fn:replace(vo.content, newLine, '<br/>')}	
+						${fn:replace(vo.content, newLine, '<br>')}	
 					</div>
 					</div>
 					<div class="col text-right mr-2">
@@ -265,6 +336,49 @@
 		<h5 id="topButton" class="text-right mr-3"><img src="${ctp}/images/top_arrow.gif" /></h5>
 	</div>
 <p><br/></p>
+
+	<!-- 답글달기 모달 띄우기 -->
+	<div class="modal fade" id="replyModal">
+		<div class="modal-dialog modal-dialog-centered modal-xl">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title"> &gt;&gt; 리뷰 답글달기 &lt;&lt; </h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form name="reviewReplyForm" class="was-validated">
+						<table class="table table-bordered">
+							<tr>
+								<th style="26%">게시글 작성자</th>
+								<td style="74%"><span id="reviewReplyNickName"></span></td>
+							</tr>
+							<tr>
+								<th>게시글 내용</th>
+								<td><span id="reviewReplyContent"></span></td>
+							</tr>
+						</table>
+						
+						답글 작성자 : ${sNickName}<br/>
+						답글 내용 
+						<textarea rows="3" name="replyContent" id="reviewReplyContent" class="form-control mb-2" required></textarea>
+						<input type="button" value="답글달기" onclick="reviewReplyCheck()" class="btn btn-outline-success form-control">
+						<input type="hidden" name="replyIdx" value="${vo.idx}" />
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 <%@ include file = "/include/footer.jsp" %>
 </body>
 </html>

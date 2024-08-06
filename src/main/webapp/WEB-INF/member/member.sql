@@ -33,8 +33,38 @@ create table member (
 
 select lastDate, now() timestampdiff(day, lastDate, now()) form member;
 
+-- 실시간 DB채팅 테이블 
+create table memberChat (
+idx int not null auto_increment primary key,        
+nickName varchar(20) not null,
+chat varchar(180) not null
+);
 
+desc memberChat;
 
+select * from memberChat order by idx desc limit 12;
+
+insert into memberChat values (default,'sona123','첫 채팅');
+insert into memberChat values (default,'sona123','첫 채팅1');
+insert into memberChat values (default,'test333','첫 채팅2');
+insert into memberChat values (default,'test4','첫 채팅3');
+insert into memberChat values (default,'test5','첫 채팅4');
+insert into memberChat values (default,'sona123','첫 채팅5');
+insert into memberChat values (default,'sona123','첫 채팅6'); 
+insert into memberChat values (default,'sona123','첫 채팅7');
+insert into memberChat values (default,'sona123','첫 채팅8');
+insert into memberChat values (default,'admin','첫 채팅9');
+insert into memberChat values (default,'sona123','첫 채팅10');
+insert into memberChat values (default,'sona123','첫 채팅11');
+insert into memberChat values (default,'sona123','첫 채팅12');
+insert into memberChat values (default,'admin','첫 채팅13');
+insert into memberChat values (default,'sona123','첫 채팅14');
+insert into memberChat values (default,'sona123','첫 채팅15');
+insert into memberChat values (default,'test6','첫 채팅16');
+insert into memberChat values (default,'sona123','첫 채팅17');
+insert into memberChat values (default,'sona123','첫 채팅18');
+insert into memberChat values (default,'sona123','첫 채팅19');
+insert into memberChat values (default,'sona123','첫 채팅20');
 
 
 
